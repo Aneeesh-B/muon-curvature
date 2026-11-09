@@ -1,0 +1,12 @@
+{
+  "n_layer": 2, "n_head": 2, "n_embd": 64, "block_size": 64,
+  "batch_size": 8, "steps": 200, "dropout": 0.0,
+  "eval_every": 50, "eval_batches": 8, "lr": 0.02,
+  "adam_lr": 0.001, "weight_decay": 0.0, "momentum": 0.95,
+  "probe_every": 10, "probe_start": 0, "relative_distance": 0.001,
+  "lr_min": 0.00001, "lr_max": 0.2, "safety": 1.0,
+  "diagnostic_steps": [0, 50, 100], "stale_ages": [0, 1, 10, 50, 100],
+  "scan_lrs": [0.0001, 0.0003, 0.001, 0.003, 0.01, 0.02, 0.03, 0.1, 0.2],
+  "probe_distances": [0.0001, 0.001, 0.01], "diagnostic_batches": 3,
+  "threads": 4
+}
