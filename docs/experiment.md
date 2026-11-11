@@ -1,5 +1,13 @@
 # Initial experiment scope
 
+The initial study now also includes a short **equal-compute comparison**: one
+120-second campaign each for adaptive Muon, random-search Muon, default Muon
+and random-search AdamW. This directly tests whether online calibration is a
+better use of a fixed budget than learning-rate search. See
+[`compute-budget.md`](compute-budget.md) for the frozen protocol. The matched-token
+experiments below remain useful mechanism diagnostics, but do not by themselves
+measure the total cost of tuning.
+
 ## Question and boundary
 
 Is a finite-difference directional-curvature estimate numerically meaningful for

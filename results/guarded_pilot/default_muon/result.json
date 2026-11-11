@@ -1,0 +1,68 @@
+{
+  "method": "default_muon",
+  "seed": 0,
+  "budget_seconds": 60.0,
+  "elapsed_seconds": 58.575740332948044,
+  "unused_seconds": 1.424259667051956,
+  "budget_met": true,
+  "reporting": {
+    "loss": 1.6043667870183145,
+    "accuracy": 0.5211693548387096,
+    "tokens": 27776
+  },
+  "selection": {
+    "loss": 1.6462204247575751,
+    "accuracy": 0.5117367511520737,
+    "tokens": 27776,
+    "step": 1158,
+    "lr": 0.02,
+    "trial_id": 0
+  },
+  "parameters": 812288,
+  "rates": [
+    0.02
+  ],
+  "selected_trial_id": 0,
+  "continued_trial_id": null,
+  "continued_from_step": null,
+  "completed_steps": 1190,
+  "training_tokens": 2437120,
+  "reporting_seconds": 0.12611699989065528,
+  "splits": {
+    "validation_tokens": 55770,
+    "split_at": 27885,
+    "tuning_range": [
+      0,
+      27885
+    ],
+    "reporting_range": [
+      27885,
+      55770
+    ]
+  },
+  "trials": [
+    {
+      "id": 0,
+      "mode": "fixed",
+      "initial_lr": 0.02,
+      "final_lr": 0.02,
+      "steps": 1190,
+      "best": {
+        "loss": 1.6462204247575751,
+        "accuracy": 0.5117367511520737,
+        "tokens": 27776,
+        "step": 1158,
+        "lr": 0.02,
+        "trial_id": 0
+      },
+      "failed": null,
+      "train_seconds": 56.26110177184455,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 1.7445930421818048,
+      "snapshot_seconds": 0.009823751403018832,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0
+    }
+  ]
+}

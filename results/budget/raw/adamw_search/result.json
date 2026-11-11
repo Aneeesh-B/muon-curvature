@@ -1,0 +1,116 @@
+{
+  "method": "adamw_search",
+  "seed": 0,
+  "budget_seconds": 120,
+  "elapsed_seconds": 119.10166495898739,
+  "unused_seconds": 0.898335041012615,
+  "budget_met": true,
+  "reporting": {
+    "loss": 1.6405721139248615,
+    "accuracy": 0.5088925691244239,
+    "tokens": 27776
+  },
+  "selection": {
+    "loss": 1.647531340199132,
+    "accuracy": 0.4988119239631336,
+    "tokens": 27776,
+    "step": 2709,
+    "lr": 0.001,
+    "trial_id": 0
+  },
+  "parameters": 812288,
+  "rates": [
+    0.001,
+    0.00012385629745678345,
+    0.006923678060555433
+  ],
+  "selected_trial_id": 0,
+  "continued_trial_id": 0,
+  "continued_from_step": 445,
+  "completed_steps": 3716,
+  "training_tokens": 7610368,
+  "reporting_seconds": 0.13387491717003286,
+  "splits": {
+    "validation_tokens": 55770,
+    "split_at": 27885,
+    "tuning_range": [
+      0,
+      27885
+    ],
+    "reporting_range": [
+      27885,
+      55770
+    ]
+  },
+  "trials": [
+    {
+      "id": 0,
+      "mode": "adamw",
+      "initial_lr": 0.001,
+      "final_lr": 0.001,
+      "steps": 2772,
+      "best": {
+        "loss": 1.647531340199132,
+        "accuracy": 0.4988119239631336,
+        "tokens": 27776,
+        "step": 2709,
+        "lr": 0.001,
+        "trial_id": 0
+      },
+      "failed": null,
+      "train_seconds": 85.45536642638035,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 2.526253040879965,
+      "snapshot_seconds": 0.015040250029414892,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0
+    },
+    {
+      "id": 1,
+      "mode": "adamw",
+      "initial_lr": 0.00012385629745678345,
+      "final_lr": 0.00012385629745678345,
+      "steps": 465,
+      "best": {
+        "loss": 2.493249346034318,
+        "accuracy": 0.285894297235023,
+        "tokens": 27776,
+        "step": 465,
+        "lr": 0.00012385629745678345,
+        "trial_id": 1
+      },
+      "failed": null,
+      "train_seconds": 14.16374299256131,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.5071854589041322,
+      "snapshot_seconds": 0.003088833997026086,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0
+    },
+    {
+      "id": 2,
+      "mode": "adamw",
+      "initial_lr": 0.006923678060555433,
+      "final_lr": 0.006923678060555433,
+      "steps": 479,
+      "best": {
+        "loss": 2.5735705645952356,
+        "accuracy": 0.2521601382488479,
+        "tokens": 27776,
+        "step": 479,
+        "lr": 0.006923678060555433,
+        "trial_id": 2
+      },
+      "failed": null,
+      "train_seconds": 14.442076613660902,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.5203274588566273,
+      "snapshot_seconds": 0.0033111250959336758,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0
+    }
+  ]
+}

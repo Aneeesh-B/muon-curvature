@@ -1,0 +1,68 @@
+{
+  "method": "adaptive_muon",
+  "seed": 0,
+  "budget_seconds": 120,
+  "elapsed_seconds": 118.99377950001508,
+  "unused_seconds": 1.00622049998492,
+  "budget_met": true,
+  "reporting": {
+    "loss": 2.158345590538693,
+    "accuracy": 0.3679795506912442,
+    "tokens": 27776
+  },
+  "selection": {
+    "loss": 2.2082153981731785,
+    "accuracy": 0.35516273041474655,
+    "tokens": 27776,
+    "step": 212,
+    "lr": 0.10174802697293964,
+    "trial_id": 0
+  },
+  "parameters": 812288,
+  "rates": [
+    0.02
+  ],
+  "selected_trial_id": 0,
+  "continued_trial_id": null,
+  "continued_from_step": null,
+  "completed_steps": 2284,
+  "training_tokens": 4677632,
+  "reporting_seconds": 0.15931850019842386,
+  "splits": {
+    "validation_tokens": 55770,
+    "split_at": 27885,
+    "tuning_range": [
+      0,
+      27885
+    ],
+    "reporting_range": [
+      27885,
+      55770
+    ]
+  },
+  "trials": [
+    {
+      "id": 0,
+      "mode": "periodic",
+      "initial_lr": 0.02,
+      "final_lr": 0.10174802697293964,
+      "steps": 2284,
+      "best": {
+        "loss": 2.2082153981731785,
+        "accuracy": 0.35516273041474655,
+        "tokens": 27776,
+        "step": 212,
+        "lr": 0.10174802697293964,
+        "trial_id": 0
+      },
+      "failed": null,
+      "train_seconds": 112.11803124449216,
+      "probe_seconds": 2.0447786652948707,
+      "evaluation_seconds": 3.7744936260860413,
+      "snapshot_seconds": 0.0025181667879223824,
+      "probes": 44,
+      "fallbacks": 42,
+      "clamps": 0
+    }
+  ]
+}

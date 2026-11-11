@@ -6,6 +6,27 @@ FP32, single-device training harness. Start with the measured results in
 [`results/INITIAL_FINDINGS.md`](results/INITIAL_FINDINGS.md) and the experiment
 scope in [`docs/experiment.md`](docs/experiment.md).
 
+The latest [guarded Muon pilot](results/guarded_pilot/README.md) explains the independent-batch calibration and step check, with its preliminary results.
+
+The short **equal-compute comparison** gives adaptive Muon, random-search Muon,
+default Muon and random-search AdamW **two minutes each**, one seed. It measures
+reporting-validation loss and next-character accuracy while charging search and
+probe costs. See [`docs/compute-budget.md`](docs/compute-budget.md) for the full
+protocol and [`results/budget/comparison.md`](results/budget/comparison.md) for
+the completed run. Run it with:
+
+```bash
+.venv/bin/python -m curvature_muon.budget \
+  --config configs/budget.json --out runs/budget_seed0 --device cpu
+```
+
+The [correctness audit](results/audit_verified/FINDINGS.md) replays the first
+251 updates, checks finite-difference curvature against independent FP64
+Hessian-vector products, and evaluates proposed steps on fresh batches. It
+finds that the accepted rates improve their own batch but hurt fresh batches;
+repeated fallback then retains an aggressive rate. All 17 tests pass. The
+original optimizer policy and benchmark results are preserved.
+
 ## Setup
 
 From this repository directory:

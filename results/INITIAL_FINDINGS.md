@@ -4,6 +4,15 @@ This repo contains a working implementation and an executed CPU pilot. The
 engineering approach is feasible. The first results do **not** support a
 performance or learning-rate-tuning advantage for the current rule.
 
+The short equal-compute comparison is now complete: four methods, one seed,
+120 seconds per method. Default Muon scored 1.5290 reporting loss / 54.21%
+next-character accuracy; random-search Muon 1.5468 / 53.72%; random-search AdamW
+1.6406 / 50.89%; and adaptive Muon 2.1583 / 36.80%. All methods stayed under
+their caps. See [`budget/comparison.md`](budget/comparison.md) and
+[`budget/NOTES.md`](budget/NOTES.md). Its reporting split differs from the older
+whole-validation measurements below, so do not compare their absolute values
+as if they were the same evaluation.
+
 ## What was actually run
 
 - Reported smoke comparison: 21 paired-seed runs, seven configurations, three seeds, 106,880

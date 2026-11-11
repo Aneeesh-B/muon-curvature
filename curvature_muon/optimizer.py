@@ -157,6 +157,27 @@ def probe(direction, closure, forward_rng, relative_distance=1e-3):
     return dict(result, status=status)
 
 
+def independent_probe(direction, closure, forward_rng, relative_distance=1e-3):
+    """Use the same independent objective for both finite-difference gradients."""
+    with replay_rng(forward_rng), torch.enable_grad():
+        base = torch.autograd.grad(closure(), direction.params)
+    calibration_direction = Direction(direction.params, list(base), direction.updates, direction.momenta)
+    return probe(calibration_direction, closure, forward_rng, relative_distance)
+
+
+def backtrack(direction, closure, forward_rng, rate, max_trials=6):
+    """Check matrix-only displacement on an independent batch, restoring state."""
+    with replay_rng(forward_rng), torch.no_grad():
+        baseline = closure().item()
+    for trial in range(max_trials):
+        candidate = rate * (0.5 ** trial)
+        with displaced(direction.params, direction.updates, -candidate), replay_rng(forward_rng), torch.no_grad():
+            loss = closure().item()
+        if math.isfinite(loss) and loss <= baseline:
+            return candidate, dict(status="accepted", trials=trial+1, baseline=baseline, loss=loss)
+    return 0.0, dict(status="rejected", trials=max_trials, baseline=baseline, loss=loss)
+
+
 def select_lr(measurement, previous, minimum=1e-5, maximum=0.2, safety=1.0):
     if not 0 < minimum <= maximum or not 0 < safety <= 1:
         raise ValueError("Invalid learning-rate safeguards")

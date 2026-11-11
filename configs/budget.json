@@ -1,0 +1,12 @@
+{
+  "training_config": "configs/tiny.json",
+  "seconds_per_method": 120,
+  "seed": 0,
+  "methods": ["adaptive_muon", "muon_search", "default_muon", "adamw_search"],
+  "search_candidates": 3,
+  "exploration_fraction": 0.375,
+  "muon_lr_range": [0.001, 0.1],
+  "adamw_lr_range": [0.0001, 0.01],
+  "validation_every_seconds": 5,
+  "final_reserve_seconds": 0.75
+}

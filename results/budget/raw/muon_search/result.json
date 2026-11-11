@@ -1,0 +1,116 @@
+{
+  "method": "muon_search",
+  "seed": 0,
+  "budget_seconds": 120,
+  "elapsed_seconds": 118.92187275015749,
+  "unused_seconds": 1.0781272498425096,
+  "budget_met": true,
+  "reporting": {
+    "loss": 1.5468332646629228,
+    "accuracy": 0.5371903801843319,
+    "tokens": 27776
+  },
+  "selection": {
+    "loss": 1.555683749612026,
+    "accuracy": 0.5309619815668203,
+    "tokens": 27776,
+    "step": 1781,
+    "lr": 0.02,
+    "trial_id": 0
+  },
+  "parameters": 812288,
+  "rates": [
+    0.02,
+    0.007564197611404534,
+    0.01710717719249415
+  ],
+  "selected_trial_id": 0,
+  "continued_trial_id": 0,
+  "continued_from_step": 304,
+  "completed_steps": 2406,
+  "training_tokens": 4927488,
+  "reporting_seconds": 0.13743887492455542,
+  "splits": {
+    "validation_tokens": 55770,
+    "split_at": 27885,
+    "tuning_range": [
+      0,
+      27885
+    ],
+    "reporting_range": [
+      27885,
+      55770
+    ]
+  },
+  "trials": [
+    {
+      "id": 0,
+      "mode": "fixed",
+      "initial_lr": 0.02,
+      "final_lr": 0.02,
+      "steps": 1781,
+      "best": {
+        "loss": 1.555683749612026,
+        "accuracy": 0.5309619815668203,
+        "tokens": 27776,
+        "step": 1781,
+        "lr": 0.02,
+        "trial_id": 0
+      },
+      "failed": null,
+      "train_seconds": 85.36759435362183,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 2.632175706559792,
+      "snapshot_seconds": 0.014615082880482078,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0
+    },
+    {
+      "id": 1,
+      "mode": "fixed",
+      "initial_lr": 0.007564197611404534,
+      "final_lr": 0.007564197611404534,
+      "steps": 293,
+      "best": {
+        "loss": 2.1139110431143764,
+        "accuracy": 0.3786722350230415,
+        "tokens": 27776,
+        "step": 293,
+        "lr": 0.007564197611404534,
+        "trial_id": 1
+      },
+      "failed": null,
+      "train_seconds": 13.977143494179472,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.6786483339965343,
+      "snapshot_seconds": 0.003631124272942543,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0
+    },
+    {
+      "id": 2,
+      "mode": "fixed",
+      "initial_lr": 0.01710717719249415,
+      "final_lr": 0.01710717719249415,
+      "steps": 332,
+      "best": {
+        "loss": 1.9727714259503624,
+        "accuracy": 0.4232430875576037,
+        "tokens": 27776,
+        "step": 332,
+        "lr": 0.01710717719249415,
+        "trial_id": 2
+      },
+      "failed": null,
+      "train_seconds": 14.538612629519776,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.5099923752713948,
+      "snapshot_seconds": 0.003602626034989953,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0
+    }
+  ]
+}
