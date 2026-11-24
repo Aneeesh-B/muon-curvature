@@ -6,6 +6,8 @@ FP32, single-device training harness. Start with the measured results in
 [`results/INITIAL_FINDINGS.md`](results/INITIAL_FINDINGS.md) and the experiment
 scope in [`docs/experiment.md`](docs/experiment.md).
 
+For the GPU queue, use the [4070 and 5090 overnight runbook](docs/overnight.md).
+
 The latest [guarded Muon pilot](results/guarded_pilot/README.md) explains the independent-batch calibration and step check, with its preliminary results.
 
 The short **equal-compute comparison** gives adaptive Muon, random-search Muon,

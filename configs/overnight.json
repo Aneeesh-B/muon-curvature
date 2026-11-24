@@ -1,0 +1,14 @@
+{
+  "training_config": "configs/tiny.json",
+  "seconds_per_method": 480,
+  "seed": 0,
+  "methods": ["guarded_muon", "guarded_base_muon", "default_muon", "muon_search", "adamw_search"],
+  "search_candidates": 5,
+  "search_grids": {
+    "muon_search": [0.003, 0.01, 0.04, 0.08],
+    "adamw_search": [0.0003, 0.003, 0.006, 0.01]
+  },
+  "exploration_fraction": 0.4,
+  "validation_every_seconds": 15,
+  "final_reserve_seconds": 8
+}

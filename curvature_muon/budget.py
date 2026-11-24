@@ -1,4 +1,4 @@
-"""Compare selected model quality under a shared elapsed-time budget.
+"""Compare models at equal wall time or at an exact update horizon.
 
 Each search owns ONE budget across all trials. Exploration is followed by
 continuation of the winning live Trial object, preserving all optimizer/RNG
@@ -27,7 +27,28 @@ from .data import Batches, DATA, ROOT
 from .diagnostics import append_json
 from .optimizer import Muon, probe, independent_probe, backtrack, replay_rng, rng_state, select_lr, split_parameters
 
-METHODS = ("guarded_muon", "adaptive_muon", "muon_search", "default_muon", "adamw_search")
+METHOD_MODES = {
+    "guarded_base_muon": "guarded_base",
+    "guarded_muon": "guarded",
+    "adaptive_muon": "periodic",
+    "muon_search": "fixed",
+    "default_muon": "fixed",
+    "adamw_search": "adamw",
+    "scheduled_fixed_muon": "scheduled_fixed",
+    "scheduled_same_batch_muon": "scheduled_same_batch",
+    "scheduled_heldout_muon": "scheduled_heldout",
+}
+METHODS = tuple(METHOD_MODES)
+SCHEDULED_PROBES = ("scheduled_same_batch", "scheduled_heldout")
+
+
+def schedule_multiplier(step, updates, warmup=40):
+    decay_start = updates - round(0.65 * updates)
+    if step < warmup:
+        return step / warmup
+    if step <= decay_start:
+        return 1.0
+    return 1.0 - 0.95 * (step - decay_start) / (updates - 1 - decay_start)
 
 
 def now(device):
@@ -106,6 +127,7 @@ class Trial:
             self.rng = rng_state()
         self.generator = torch.Generator().manual_seed(1000+seed)
         self.calibration_generator = torch.Generator().manual_seed(2000+seed)
+        self.schedule = dict(peak=lr, latest=lr) if mode.startswith("scheduled_") else None
         self.step = 0
         self.stats = dict(train_seconds=0.0, probe_seconds=0.0, evaluation_seconds=0.0,
                           snapshot_seconds=0.0, probes=0, fallbacks=0, clamps=0)
@@ -118,6 +140,20 @@ class Trial:
     @property
     def lr(self):
         return self.muon.param_groups[0]["lr"] if self.muon else self.adam.param_groups[0]["lr"]
+
+    def set_muon_lr(self, rate):
+        for group in self.muon.param_groups:
+            group["lr"] = rate
+
+    def scheduled_probe(self, direction, batch, forward_rng, state):
+        distance = self.config["relative_distance"]
+        if self.mode == "scheduled_same_batch":
+            return probe(direction, lambda: self.model(*batch)[1], forward_rng, distance)
+        # Peek at the next batch without consuming any training draws.
+        peek = torch.Generator()
+        peek.set_state(self.generator.get_state())
+        next_batch = self.batches.get("train", peek)
+        return independent_probe(direction, lambda: self.model(*next_batch)[1], state, distance)
 
     def train_step(self):
         started = now(self.device)
@@ -133,27 +169,46 @@ class Trial:
             direction = self.muon.prepare() if self.muon else None
             record = dict(step=self.step, train_loss=loss.item())
             c = self.config
-            if (self.mode in ("periodic", "guarded") and self.step >= c["probe_start"]
+            if self.schedule is not None:
+                decay_start = c["steps"] - round(0.65 * c["steps"])
+                if self.mode in SCHEDULED_PROBES and self.step > 0 and self.step % 25 == 0:
+                    t = now(self.device)
+                    measurement = self.scheduled_probe(direction, batch, state, rng_state())
+                    rate, decision = select_lr(measurement, self.schedule["latest"],
+                                               c["lr_min"], c["lr_max"], c["safety"])
+                    self.schedule["latest"] = rate
+                    if self.step <= decay_start:
+                        self.schedule["peak"] = rate
+                    probe_seconds = now(self.device) - t
+                    record.update(probe=measurement, decision=decision, proposed_lr=rate)
+                rate = self.schedule["peak"] * schedule_multiplier(self.step, c["steps"])
+                if self.step > decay_start and self.mode in SCHEDULED_PROBES:
+                    rate = min(rate, self.schedule["latest"])
+                self.set_muon_lr(rate)
+            elif (self.mode in ("periodic", "guarded", "guarded_base") and self.step >= c["probe_start"]
                     and (self.step-c["probe_start"]) % c["probe_every"] == 0):
                 t = now(self.device)
-                if self.mode == "guarded":
+                if self.mode in ("guarded", "guarded_base"):
                     calibration = self.batches.get("train", self.calibration_generator)
                     check = self.batches.get("train", self.calibration_generator)
                     probe_rng = rng_state()
                     measurement = independent_probe(direction, lambda: self.model(*calibration)[1], probe_rng, c["relative_distance"])
                     rate, decision = select_lr(measurement, c["lr"], c["lr_min"], c["lr_max"], c["safety"])
+                    if self.mode == "guarded_base":
+                        rate, decision = c["lr"], "base_control"
+                    record["proposed_lr"] = rate
                     rate, guard = backtrack(direction, lambda: self.model(*check)[1], probe_rng, rate)
                     record["guard"] = guard
                 else:
                     measurement = probe(direction, lambda: self.model(*batch)[1], state, c["relative_distance"])
                     rate, decision = select_lr(measurement, self.lr, c["lr_min"], c["lr_max"], c["safety"])
-                for group in self.muon.param_groups:
-                    group["lr"] = rate
+                self.set_muon_lr(rate)
                 probe_seconds = now(self.device)-t
-                self.stats["probes"] += 1
-                self.stats["fallbacks"] += decision == "fallback"
-                self.stats["clamps"] += decision == "clamped"
                 record.update(probe=measurement, decision=decision)
+            if "probe" in record:
+                self.stats["probes"] += 1
+                self.stats["fallbacks"] += record["decision"] == "fallback"
+                self.stats["clamps"] += record["decision"] == "clamped"
             if self.muon:
                 self.muon.step(direction)
             self.adam.step()
@@ -183,7 +238,7 @@ class Trial:
                     step=self.step, stats=copy.deepcopy(self.stats), config=self.config,
                     model_config=asdict(self.model_config), mode=self.mode, seed=self.seed,
                     initial_lr=self.initial_lr, trial_id=self.trial_id, failed=self.failed,
-                    best=self.best, best_weights=self.best_weights)
+                    best=self.best, best_weights=self.best_weights, schedule=copy.copy(self.schedule))
 
     def load_state_dict(self, state):
         self.model.load_state_dict(state["model"])
@@ -196,6 +251,7 @@ class Trial:
             self.calibration_generator.set_state(state["calibration_generator"])
         self.step, self.stats = state["step"], copy.deepcopy(state["stats"])
         self.best, self.best_weights, self.failed = state["best"], state["best_weights"], state["failed"]
+        self.schedule = copy.copy(state.get("schedule"))
 
 
 def candidate_rates(experiment, method, config):
@@ -205,6 +261,14 @@ def candidate_rates(experiment, method, config):
     default = config["adam_lr"] if adam else config["lr"]
     if not method.endswith("_search"):
         return [default]
+    grid = experiment.get("search_grids", {}).get(method)
+    if grid is not None:
+        rates = [default, *grid]
+        if len(rates) != experiment["search_candidates"] or len(set(rates)) != len(rates):
+            raise ValueError(f"{method} requires distinct rates including the default")
+        if any(not math.isfinite(rate) or rate <= 0 for rate in rates):
+            raise ValueError(f"{method} rates must be positive and finite")
+        return rates
     low, high = experiment["adamw_lr_range" if adam else "muon_lr_range"]
     if not 0 < low < high:
         raise ValueError("Learning-rate search range must be positive and ordered")
@@ -241,7 +305,8 @@ def run_window(trial, deadline, campaign_start, every_seconds, events):
             break
         append_json(events, dict(event="step", trial_id=trial.trial_id,
                                  elapsed_seconds=now(device)-campaign_start, **record))
-        if now(device) >= next_validation:
+        current = now(device)
+        if next_validation <= current and current + reserve < deadline:
             validation()
             last_validated_step = trial.step
             next_validation = now(device)+every_seconds
@@ -249,7 +314,30 @@ def run_window(trial, deadline, campaign_start, every_seconds, events):
         validation()
 
 
+def run_updates(trial, campaign_start, events):
+    """Train one trajectory and score its final update."""
+    for _ in range(trial.config["steps"]):
+        record = trial.train_step()
+        append_json(events, dict(event="step", trial_id=trial.trial_id,
+                                 elapsed_seconds=now(trial.device)-campaign_start, **record))
+    metrics = trial.validate()
+    append_json(events, dict(event="validation", trial_id=trial.trial_id, step=trial.step,
+                             elapsed_seconds=now(trial.device)-campaign_start, tuning=metrics,
+                             best=trial.best))
+
+
+class CampaignFailed(RuntimeError):
+    pass
+
+
 def run_campaign(config, experiment, method, out, device="cpu"):
+    matched = experiment.get("matched_updates", False)
+    mode = METHOD_MODES[method]
+    search = method.endswith("_search")
+    if matched and (search or config["steps"] < 1):
+        raise ValueError("Matched updates require a single trajectory and a positive step count")
+    if mode.startswith("scheduled_") and (not matched or config["steps"] < 120):
+        raise ValueError("Scheduled methods require a fixed horizon of at least 120 updates")
     out = Path(out)
     out.mkdir(parents=True, exist_ok=True)
     if any(out.iterdir()):
@@ -257,28 +345,34 @@ def run_campaign(config, experiment, method, out, device="cpu"):
     rates = candidate_rates(experiment, method, config)
     # Protocol/rates are chosen before inspecting any losses. File/data/model
     # initialization below, every validation, and all model saves are charged.
+    if device == "cuda":
+        torch.cuda.reset_peak_memory_stats()
     started = now(device)
-    budget = experiment["seconds_per_method"]
-    deadline = started+budget
-    final_reserve = min(experiment["final_reserve_seconds"], budget*0.25)
-    training_deadline = deadline-final_reserve
+    budget = None if matched else experiment["seconds_per_method"]
+    if budget is not None:
+        final_reserve = min(experiment["final_reserve_seconds"], budget*0.25)
+        training_deadline = started + budget - final_reserve
     batches = BudgetBatches(config["batch_size"], config["block_size"], device)
     trials = []
     events = out / "events.jsonl"
-    mode = "adamw" if method == "adamw_search" else "periodic" if method == "adaptive_muon" else "guarded" if method == "guarded_muon" else "fixed"
-    search = method.endswith("_search")
     append_json(events, dict(event="start", method=method, budget_seconds=budget, rates=rates,
                              elapsed_seconds=now(device)-started))
     for index, rate in enumerate(rates):
         trial = Trial(config, batches, mode, experiment["seed"], rate, index)
         trials.append(trial)
+        if matched:
+            try:
+                run_updates(trial, started, events)
+            except FloatingPointError as error:
+                raise CampaignFailed(f"{method} diverged at update {trial.step}: {error}") from error
+            break
         slot_deadline = (started+budget*experiment["exploration_fraction"]*(index+1)/len(rates)
                          if search else training_deadline)
         run_window(trial, min(slot_deadline, training_deadline), started,
                    experiment["validation_every_seconds"], events)
     viable = [trial for trial in trials if trial.best is not None and not trial.failed]
     if not viable:
-        raise RuntimeError(f"All trials failed for {method}")
+        raise CampaignFailed(f"No viable trial for {method}")
     winner = min(viable, key=lambda trial: trial.best["loss"])
     continuation_from = winner.step
     if search:
@@ -297,12 +391,17 @@ def run_campaign(config, experiment, method, out, device="cpu"):
     t = now(device)
     reporting = evaluate(selected.model, batches, "reporting")
     reporting_seconds = now(device)-t
+    if not math.isfinite(reporting["loss"]):
+        raise CampaignFailed(f"Nonfinite reporting loss for {method}")
     torch.save(dict(model=selected.best_weights, model_config=asdict(selected.model_config),
                     training_config=config, selection=selected.best, reporting=reporting), out / "selected.pt")
     elapsed = now(device)-started
     result = dict(method=method, seed=experiment["seed"], budget_seconds=budget,
-                  elapsed_seconds=elapsed, unused_seconds=max(0, budget-elapsed),
-                  budget_met=elapsed <= budget, reporting=reporting, selection=selected.best,
+                  elapsed_seconds=elapsed, unused_seconds=max(0, budget-elapsed) if not matched else None,
+                  budget_met=elapsed <= budget if not matched else None,
+                  protocol="matched_updates" if matched else "equal_wall_time",
+                  peak_cuda_allocated_bytes=torch.cuda.max_memory_allocated() if device == "cuda" else None,
+                  reporting=reporting, selection=selected.best,
                   parameters=sum(p.numel() for p in selected.model.parameters()), rates=rates,
                   selected_trial_id=selected.trial_id, continued_trial_id=winner.trial_id if search else None,
                   continued_from_step=continuation_from if search else None,
@@ -313,9 +412,10 @@ def run_campaign(config, experiment, method, out, device="cpu"):
                                steps=t.step, best=t.best, failed=t.failed, **t.stats) for t in trials])
     # Publishing the accounting report is outside the model-work budget.
     (out / "result.json").write_text(json.dumps(result, indent=2, allow_nan=False)+"\n")
-    print(f"{method}: {elapsed:.2f}/{budget}s, reporting loss={reporting['loss']:.4f}, "
+    cap = f"/{budget}" if not matched else ""
+    print(f"{method}: {elapsed:.2f}{cap}s, reporting loss={reporting['loss']:.4f}, "
           f"accuracy={100*reporting['accuracy']:.2f}%, steps={result['completed_steps']}", flush=True)
-    if not result["budget_met"]:
+    if result["budget_met"] is False:
         print("Budget exceeded: retain this result for audit, but exclude it from a fair winner claim.", flush=True)
     return result
 
@@ -323,33 +423,41 @@ def run_campaign(config, experiment, method, out, device="cpu"):
 def write_report(out):
     out = Path(out)
     results = [json.loads(p.read_text()) for p in sorted(out.glob("*/result.json"))]
-    if not results:
+    failures = [json.loads(p.read_text()) for p in sorted(out.glob("*/failure.json"))]
+    if not results and not failures:
         raise ValueError("No completed campaigns")
+    matched = bool(results) and results[0].get("protocol") == "matched_updates"
     rows = [dict(method=r["method"], budget_seconds=r["budget_seconds"], elapsed_seconds=r["elapsed_seconds"],
                  budget_met=r["budget_met"], reporting_loss=r["reporting"]["loss"],
                  reporting_accuracy=r["reporting"]["accuracy"], selection_loss=r["selection"]["loss"],
                  selected_step=r["selection"]["step"], completed_steps=r["completed_steps"],
                  training_tokens=r["training_tokens"], probes=sum(t["probes"] for t in r["trials"]),
-                 probe_seconds=sum(t["probe_seconds"] for t in r["trials"])) for r in results]
+                 probe_seconds=sum(t["probe_seconds"] for t in r["trials"]),
+                 peak_cuda_allocated_bytes=r.get("peak_cuda_allocated_bytes")) for r in results]
     with (out / "comparison.csv").open("w", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator="\n")
+        writer = csv.DictWriter(stream, fieldnames=list(rows[0]) if rows else ["method"], lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
-    lines = ["# Equal-budget optimizer comparison", "",
-             "One seed, same model/data and hardware, one elapsed-time cap per method. Lower loss and higher next-character accuracy are better.", "",
+    lines = ["# Matched-update optimizer comparison" if matched else "# Equal-budget optimizer comparison", "",
+             "One paired seed on the same model, data and hardware.", "",
              "| Method | Budget (s) | Used (s) | Reporting loss | Accuracy | Total updates | Probes |",
              "|---|---:|---:|---:|---:|---:|---:|"]
     for row in rows:
-        mark = "" if row["budget_met"] else " (OVER BUDGET)"
-        lines.append(f"| {row['method']}{mark} | {row['budget_seconds']:g} | {row['elapsed_seconds']:.2f} | "
+        mark = " (OVER BUDGET)" if row["budget_met"] is False else ""
+        cap = "—" if matched else f"{row['budget_seconds']:g}"
+        lines.append(f"| {row['method']}{mark} | {cap} | {row['elapsed_seconds']:.2f} | "
                      f"{row['reporting_loss']:.4f} | {100*row['reporting_accuracy']:.2f}% | "
                      f"{row['completed_steps']} | {row['probes']} |")
-    lines += ["", "Selection uses only the first half of the validation text. The selected checkpoint is evaluated once on the second half, over nonoverlapping target positions. The test split is never loaded.",
-              "Each search includes the default plus two log-uniform random learning rates, spending 37.5% of its cap on equal exploration slots and continuing the best trial with the remaining budget. Trial continuation preserves model, optimizer and RNG state.",
-              "All data/model initialization, training, probes, validation, in-memory snapshots, selection and model checkpoint I/O are charged. Shared Python import/environment setup and publication of result tables are excluded. No other work runs concurrently in the suite.",
-              "A small final reserve and conservative update/evaluation guards can leave part of the cap unused; actual time is shown. Any over-budget campaign is flagged and cannot support a fair winner claim.",
-              "Total updates/tokens include discarded trials; selected-checkpoint steps and probe timings are in the CSV. Methods may complete different numbers of updates under the same cap.",
-              "This is a single-seed CPU pilot on a previously studied dataset, not an unseen-task or GPU benchmark. Timing depends on system load. Search ranges/controller settings were fixed before this run; no controller tuning is charged to this pilot."]
+    if matched:
+        lines += ["", "Reporting uses the final update of every completed trajectory."]
+    else:
+        lines += ["", "The first validation half selects checkpoints. The second half supplies reporting metrics.",
+                  "Each search explores the default and additional logged rates, then continues the winning live trial. "
+                  "Total updates and tokens include discarded trials.",
+                  "Elapsed time includes initialization, compute, validation and checkpoint I/O. Over-budget methods are flagged."]
+    if failures:
+        lines += ["", "## Failed campaigns", ""]
+        lines.extend(f"- {r['method']} — {r['error']}" for r in failures)
     (out / "comparison.md").write_text("\n".join(lines)+"\n")
     return rows
 
@@ -359,7 +467,10 @@ def main():
     parser.add_argument("--config", default="configs/budget.json")
     parser.add_argument("--out", required=True)
     parser.add_argument("--device", choices=["cpu", "cuda"], default="cpu")
-    parser.add_argument("--seconds", type=float, help="Override each method's elapsed-time cap")
+    horizon = parser.add_mutually_exclusive_group()
+    horizon.add_argument("--seconds", type=float, help="Override each method's elapsed-time cap")
+    horizon.add_argument("--updates", type=int, help="Train each trajectory for exactly this many updates")
+    parser.add_argument("--training-config", help="Override the model/training JSON file")
     parser.add_argument("--seed", type=int)
     parser.add_argument("--methods", nargs="+", choices=METHODS)
     args = parser.parse_args()
@@ -371,7 +482,16 @@ def main():
             or not 0 < experiment["exploration_fraction"] < 1
             or experiment["validation_every_seconds"] <= 0 or experiment["final_reserve_seconds"] <= 0):
         raise ValueError("Invalid budget experiment settings")
+    if args.training_config:
+        experiment["training_config"] = args.training_config
     config = json.loads((ROOT / experiment["training_config"]).read_text())
+    experiment["matched_updates"] = args.updates is not None
+    if args.updates is not None:
+        config["steps"] = args.updates
+        if args.updates < 1 or any(m.endswith("_search") for m in experiment["methods"]):
+            parser.error("--updates requires a positive count and single-trajectory methods")
+    if any(m.startswith("scheduled_") for m in experiment["methods"]) and (args.updates or 0) < 120:
+        parser.error("Scheduled Muon methods require --updates of at least 120")
     if args.device == "cuda" and not torch.cuda.is_available():
         raise RuntimeError("CUDA requested but unavailable")
     torch.set_num_threads(config["threads"])
@@ -391,15 +511,22 @@ def main():
                     python=platform.python_version(), torch=str(torch.__version__), platform=platform.platform(),
                     revision=revision.stdout.strip(), git_dirty=bool(dirty.stdout.strip()),
                     hardware=torch.cuda.get_device_name() if args.device == "cuda" else platform.machine(),
+                    torch_cuda=torch.version.cuda,
+                    cuda_capability=torch.cuda.get_device_capability() if args.device == "cuda" else None,
                     data=json.loads((DATA / "meta.json").read_text()),
                     source_sha256={str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                                    for folder in ("curvature_muon", "third_party/nanogpt")
                                    for p in sorted((ROOT / folder).glob("*.py"))})
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2)+"\n")
+    limit = f"{args.updates} updates" if args.updates is not None else f"{experiment['seconds_per_method']} seconds"
     for method in order:
-        print(f"Starting {method}: {experiment['seconds_per_method']} seconds", flush=True)
-        run_campaign(config, experiment, method, out / method, args.device)
-    write_report(out)
+        print(f"Starting {method} ({limit})", flush=True)
+        try:
+            run_campaign(config, experiment, method, out / method, args.device)
+        except CampaignFailed as error:
+            (out / method / "failure.json").write_text(json.dumps(dict(method=method, error=str(error)), indent=2)+"\n")
+            print(f"Failed {method}: {error}", flush=True)
+        write_report(out)
 
 
 if __name__ == "__main__":

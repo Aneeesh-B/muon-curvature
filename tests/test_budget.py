@@ -6,11 +6,12 @@ import math
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import torch
 
 from curvature_muon.budget import (BudgetBatches, Trial, candidate_rates,
-                                    evaluate, run_campaign, write_report)
+                                    evaluate, run_campaign, schedule_multiplier, write_report)
 from curvature_muon.data import DATA, ROOT
 from curvature_muon.optimizer import rng_state
 from curvature_muon.train import run
@@ -76,6 +77,39 @@ class BudgetTests(unittest.TestCase):
             a, b = original.state_dict(), resumed.state_dict()
             for key in ("model", "muon", "adam", "rng", "train_generator", "calibration_generator", "step"):
                 assert_equal(self, a[key], b[key])
+
+    def test_guarded_base_control_proposes_reference_rate(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            trial = Trial(self.config, self.batches, "guarded_base", 13, .02)
+            record = trial.train_step()
+            self.assertEqual(record["decision"], "base_control")
+            self.assertEqual(record["proposed_lr"], self.config["lr"])
+            self.assertIn("probe", record)
+            self.assertIn("guard", record)
+
+    def test_scheduled_probe_peeks_at_the_next_training_batch(self):
+        config = dict(self.config, steps=151)
+        observed = []
+        get_batch = self.batches.get
+
+        def capture(*args):
+            batch = get_batch(*args)
+            observed.append(batch)
+            return batch
+
+        with contextlib.redirect_stdout(io.StringIO()):
+            trial = Trial(config, self.batches, "scheduled_heldout", 13, .02)
+        for _ in range(25):
+            trial.train_step()
+        with patch.object(self.batches, "get", side_effect=capture):
+            probed = trial.train_step()
+            trial.train_step()
+        self.assertIn("probe", probed)
+        self.assertEqual(len(observed), 3)
+        assert_equal(self, observed[1], observed[2])
+        self.assertEqual(schedule_multiplier(0, 151), 0)
+        self.assertEqual(schedule_multiplier(40, 151), 1)
+        self.assertAlmostEqual(schedule_multiplier(150, 151), 0.05)
 
     def test_matches_existing_adaptive_trainer(self):
         with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(io.StringIO()):
