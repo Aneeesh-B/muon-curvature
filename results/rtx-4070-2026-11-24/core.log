@@ -1,0 +1,236 @@
+number of parameters: 9.67M
+Campaign 1 seed=6 adago_search-112540123136000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adago_search seed=6 cap=112540123136000 used=112425473327104 steps=339 reporting=1.9214 elapsed=17.8s
+Campaign 2 seed=6 adago_search-225080246272000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adago_search seed=6 cap=225080246272000 used=224965596463104 steps=679 reporting=1.6148 elapsed=34.6s
+Campaign 3 seed=6 adago_search-450160492544000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adago_search seed=6 cap=450160492544000 used=450045842735104 steps=1359 reporting=1.5032 elapsed=68.8s
+Campaign 4 seed=6 independent_batch_muon
+number of parameters: 9.67M
+  independent_batch_muon seed=6 cap=112540123136000 used=112502492626944 steps=491 reporting=1.6704 elapsed=17.5s
+  independent_batch_muon seed=6 cap=225080246272000 used=225051847688192 steps=980 reporting=1.5356 elapsed=34.9s
+  independent_batch_muon seed=6 cap=450160492544000 used=450150557810688 steps=1958 reporting=1.5554 elapsed=69.7s
+Campaign 5 seed=6 muon_search-112540123136000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  muon_search seed=6 cap=112540123136000 used=112425473327104 steps=339 reporting=1.7349 elapsed=17.8s
+Campaign 6 seed=6 muon_search-225080246272000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  muon_search seed=6 cap=225080246272000 used=224965596463104 steps=679 reporting=2.0906 elapsed=35.2s
+Campaign 7 seed=6 muon_search-450160492544000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  muon_search seed=6 cap=450160492544000 used=450045842735104 steps=1359 reporting=1.5790 elapsed=69.7s
+Campaign 8 seed=6 adamw_search-112540123136000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adamw_search seed=6 cap=112540123136000 used=112510149771264 steps=614 reporting=1.9703 elapsed=14.7s
+Campaign 9 seed=6 adamw_search-225080246272000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adamw_search seed=6 cap=225080246272000 used=225069531316224 steps=1227 reporting=1.6930 elapsed=29.1s
+Campaign 10 seed=6 adamw_search-450160492544000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adamw_search seed=6 cap=450160492544000 used=450063919398912 steps=2456 reporting=1.5102 elapsed=60.7s
+Campaign 11 seed=6 same_batch_muon
+number of parameters: 9.67M
+  same_batch_muon seed=6 cap=112540123136000 used=112408767758336 steps=495 reporting=2.2734 elapsed=17.5s
+  same_batch_muon seed=6 cap=225080246272000 used=225066046980096 steps=990 reporting=2.2116 elapsed=35.0s
+  same_batch_muon seed=6 cap=450160492544000 used=450155525177344 steps=1979 reporting=2.2437 elapsed=69.6s
+Campaign 12 seed=6 default_muon
+number of parameters: 9.67M
+  default_muon seed=6 cap=112540123136000 used=112540123136000 steps=500 reporting=1.6968 elapsed=17.6s
+  default_muon seed=6 cap=225080246272000 used=225080246272000 steps=1000 reporting=1.6005 elapsed=34.7s
+  default_muon seed=6 cap=450160492544000 used=450160492544000 steps=2000 reporting=1.5545 elapsed=69.3s
+Campaign 13 seed=7 adamw_search-112540123136000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adamw_search seed=7 cap=112540123136000 used=112510149771264 steps=614 reporting=1.9432 elapsed=14.9s
+Campaign 14 seed=7 adamw_search-225080246272000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adamw_search seed=7 cap=225080246272000 used=225069531316224 steps=1227 reporting=1.6946 elapsed=29.2s
+Campaign 15 seed=7 adamw_search-450160492544000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adamw_search seed=7 cap=450160492544000 used=450063919398912 steps=2456 reporting=1.5342 elapsed=57.4s
+Campaign 16 seed=7 muon_search-112540123136000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  muon_search seed=7 cap=112540123136000 used=112425473327104 steps=339 reporting=1.9444 elapsed=18.1s
+Campaign 17 seed=7 muon_search-225080246272000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  muon_search seed=7 cap=225080246272000 used=224965596463104 steps=679 reporting=2.0008 elapsed=35.0s
+Campaign 18 seed=7 muon_search-450160492544000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  muon_search seed=7 cap=450160492544000 used=450045842735104 steps=1359 reporting=1.5480 elapsed=69.1s
+Campaign 19 seed=7 same_batch_muon
+number of parameters: 9.67M
+  same_batch_muon seed=7 cap=112540123136000 used=112408767758336 steps=495 reporting=2.3742 elapsed=17.4s
+  same_batch_muon seed=7 cap=225080246272000 used=225066046980096 steps=990 reporting=2.2634 elapsed=34.9s
+  same_batch_muon seed=7 cap=450160492544000 used=450155525177344 steps=1979 reporting=2.2089 elapsed=69.5s
+Campaign 20 seed=7 default_muon
+number of parameters: 9.67M
+  default_muon seed=7 cap=112540123136000 used=112540123136000 steps=500 reporting=1.6961 elapsed=17.5s
+  default_muon seed=7 cap=225080246272000 used=225080246272000 steps=1000 reporting=1.5929 elapsed=35.1s
+  default_muon seed=7 cap=450160492544000 used=450160492544000 steps=2000 reporting=1.5604 elapsed=70.2s
+Campaign 21 seed=7 adago_search-112540123136000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adago_search seed=7 cap=112540123136000 used=112425473327104 steps=339 reporting=1.9299 elapsed=17.6s
+Campaign 22 seed=7 adago_search-225080246272000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adago_search seed=7 cap=225080246272000 used=224965596463104 steps=679 reporting=1.6193 elapsed=34.3s
+Campaign 23 seed=7 adago_search-450160492544000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adago_search seed=7 cap=450160492544000 used=450045842735104 steps=1359 reporting=1.5033 elapsed=67.6s
+Campaign 24 seed=7 independent_batch_muon
+number of parameters: 9.67M
+  independent_batch_muon seed=7 cap=112540123136000 used=112502492626944 steps=491 reporting=1.6161 elapsed=17.4s
+  independent_batch_muon seed=7 cap=225080246272000 used=225051847688192 steps=980 reporting=1.5062 elapsed=34.7s
+  independent_batch_muon seed=7 cap=450160492544000 used=450150557810688 steps=1958 reporting=1.7461 elapsed=69.3s
+Campaign 25 seed=8 independent_batch_muon
+number of parameters: 9.67M
+  independent_batch_muon seed=8 cap=112540123136000 used=112502492626944 steps=491 reporting=1.5741 elapsed=17.4s
+  independent_batch_muon seed=8 cap=225080246272000 used=225051847688192 steps=980 reporting=1.6278 elapsed=34.7s
+  independent_batch_muon seed=8 cap=450160492544000 used=450150557810688 steps=1958 reporting=1.5217 elapsed=69.4s
+Campaign 26 seed=8 default_muon
+number of parameters: 9.67M
+  default_muon seed=8 cap=112540123136000 used=112540123136000 steps=500 reporting=1.7002 elapsed=17.5s
+  default_muon seed=8 cap=225080246272000 used=225080246272000 steps=1000 reporting=1.5946 elapsed=35.1s
+  default_muon seed=8 cap=450160492544000 used=450160492544000 steps=2000 reporting=1.5298 elapsed=69.8s
+Campaign 27 seed=8 muon_search-112540123136000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  muon_search seed=8 cap=112540123136000 used=112425473327104 steps=339 reporting=1.9546 elapsed=18.2s
+Campaign 28 seed=8 muon_search-225080246272000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  muon_search seed=8 cap=225080246272000 used=224965596463104 steps=679 reporting=2.0254 elapsed=35.2s
+Campaign 29 seed=8 muon_search-450160492544000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  muon_search seed=8 cap=450160492544000 used=450045842735104 steps=1359 reporting=1.5659 elapsed=69.2s
+Campaign 30 seed=8 adago_search-112540123136000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adago_search seed=8 cap=112540123136000 used=112425473327104 steps=339 reporting=2.0451 elapsed=17.4s
+Campaign 31 seed=8 adago_search-225080246272000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adago_search seed=8 cap=225080246272000 used=224965596463104 steps=679 reporting=1.6099 elapsed=34.2s
+Campaign 32 seed=8 adago_search-450160492544000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adago_search seed=8 cap=450160492544000 used=450045842735104 steps=1359 reporting=1.5151 elapsed=67.5s
+Campaign 33 seed=8 adamw_search-112540123136000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adamw_search seed=8 cap=112540123136000 used=112510149771264 steps=614 reporting=1.9623 elapsed=14.9s
+Campaign 34 seed=8 adamw_search-225080246272000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adamw_search seed=8 cap=225080246272000 used=225069531316224 steps=1227 reporting=1.6988 elapsed=29.1s
+Campaign 35 seed=8 adamw_search-450160492544000
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+number of parameters: 9.67M
+  adamw_search seed=8 cap=450160492544000 used=450063919398912 steps=2456 reporting=1.5254 elapsed=57.7s
+Campaign 36 seed=8 same_batch_muon
+number of parameters: 9.67M
+  same_batch_muon seed=8 cap=112540123136000 used=112408767758336 steps=495 reporting=1.7883 elapsed=17.5s
+  same_batch_muon seed=8 cap=225080246272000 used=225066046980096 steps=990 reporting=1.7032 elapsed=35.2s
+  same_batch_muon seed=8 cap=450160492544000 used=450155525177344 steps=1979 reporting=1.6587 elapsed=69.8s
+Completed 54 measurement cells across 36 scheduled campaigns

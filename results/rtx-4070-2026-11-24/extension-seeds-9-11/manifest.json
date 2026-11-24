@@ -1,0 +1,235 @@
+{
+  "config": {
+    "n_layer": 4,
+    "n_head": 7,
+    "n_embd": 448,
+    "block_size": 128,
+    "batch_size": 16,
+    "steps": 2000,
+    "dropout": 0.0,
+    "eval_every": 100,
+    "eval_batches": 32,
+    "lr": 0.02,
+    "adam_lr": 0.001,
+    "weight_decay": 0.0,
+    "momentum": 0.95,
+    "probe_every": 50,
+    "probe_start": 100,
+    "relative_distance": 0.001,
+    "lr_min": 1e-05,
+    "lr_max": 0.2,
+    "safety": 1.0,
+    "threads": 4
+  },
+  "data": {
+    "source": "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt",
+    "sha256": "86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed",
+    "vocab": [
+      "\n",
+      " ",
+      "!",
+      "$",
+      "&",
+      "'",
+      ",",
+      "-",
+      ".",
+      "3",
+      ":",
+      ";",
+      "?",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "J",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "T",
+      "U",
+      "V",
+      "W",
+      "X",
+      "Y",
+      "Z",
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "q",
+      "r",
+      "s",
+      "t",
+      "u",
+      "v",
+      "w",
+      "x",
+      "y",
+      "z"
+    ],
+    "vocab_size": 65,
+    "split_sizes": [
+      1003854,
+      55770,
+      55770
+    ]
+  },
+  "seeds": [
+    9,
+    10,
+    11
+  ],
+  "update_equivalents": [
+    500,
+    1000,
+    2000
+  ],
+  "caps_flops": [
+    112540123136000,
+    225080246272000,
+    450160492544000
+  ],
+  "ordinary_muon_flops": 225080246272,
+  "orders": {
+    "9": [
+      "default_muon",
+      "same_batch_muon",
+      "adamw_search",
+      "muon_search",
+      "adago_search",
+      "independent_batch_muon"
+    ],
+    "10": [
+      "adamw_search",
+      "default_muon",
+      "adago_search",
+      "same_batch_muon",
+      "muon_search",
+      "independent_batch_muon"
+    ],
+    "11": [
+      "adago_search",
+      "adamw_search",
+      "default_muon",
+      "same_batch_muon",
+      "muon_search",
+      "independent_batch_muon"
+    ]
+  },
+  "grids": {
+    "muon_search": [
+      [
+        0.003,
+        null
+      ],
+      [
+        0.01,
+        null
+      ],
+      [
+        0.02,
+        null
+      ],
+      [
+        0.04,
+        null
+      ],
+      [
+        0.08,
+        null
+      ]
+    ],
+    "adamw_search": [
+      [
+        0.0003,
+        null
+      ],
+      [
+        0.001,
+        null
+      ],
+      [
+        0.003,
+        null
+      ],
+      [
+        0.006,
+        null
+      ],
+      [
+        0.01,
+        null
+      ]
+    ],
+    "adago_search": [
+      [
+        0.02,
+        0.0001
+      ],
+      [
+        0.05,
+        0.0005
+      ],
+      [
+        0.1,
+        0.0005
+      ],
+      [
+        0.3,
+        0.0005
+      ],
+      [
+        0.3,
+        0.003
+      ]
+    ]
+  },
+  "revision": "7a8b6d6905c449fe91dadd0964f6f38a62561cd3",
+  "git_dirty": true,
+  "hardware": "NVIDIA GeForce RTX 4070",
+  "device": "cuda",
+  "torch": "2.14.1+cu130",
+  "cuda": "13.0",
+  "driver": "591.86",
+  "python": "3.12.16",
+  "source_sha256": {
+    "curvature_muon\\__init__.py": "76146a3d6c29a6b93954d79f2fbed739538ab13dc804f6d47bfb88a2d75d1baa",
+    "curvature_muon\\audit.py": "d3076dd1ceb395fa181cb7a7efc05f8533e84cc0def6cf9ce1d2d3986b3bb3ff",
+    "curvature_muon\\benchmark_curvature.py": "0c54c3d8d63b48b73dd206291a657e400c642f6a921d15834c98f8596cb7067f",
+    "curvature_muon\\budget.py": "16909a310725f4337c1f9e3eab7e2542cb6af4cef7ff9c51194fd9498d213aec",
+    "curvature_muon\\data.py": "adcca3f3916f20a67f2bce23c1a99573d84a1189c20e4e72923e040a63e723ed",
+    "curvature_muon\\diagnostics.py": "c963ed7d88776ca4fdf113a4610890dd3f799adc9a277a17769831310052030c",
+    "curvature_muon\\flop_budget.py": "60d8cc7557bd4ed99d6d8f9887e75bdbfd86af2be617b70d23de8f80787d0ccc",
+    "curvature_muon\\flop_diagnostics.py": "882b83d1b1a4af36bcfdf47d8680b3082e6ea5979ec2973486e62bb106418656",
+    "curvature_muon\\optimizer.py": "0c029584a5fd540fa362b4e04f9deb42f54a3810369252a58dc59b44521a75a6",
+    "curvature_muon\\report.py": "2441282eb2290998c0ab09ced940ea55f9e7197976e9954cdf10098f081ad001",
+    "curvature_muon\\suite.py": "20c74794c8416140a0e13d3e8f25a9c4525844f6bc6aefb2a57335ef24e4e92a",
+    "curvature_muon\\train.py": "c8ebec847a51c4544a878787f8f5502cd18a882f3c3a01e57b9bc08b8be9c6c0",
+    "third_party\\nanogpt\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "third_party\\nanogpt\\model.py": "63d46bccd28157de4ae3d4e714f3945370be708852d2f411e0d017a7da5f8d39"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "cap_flops": 450160492544000,
+  "charged_flops": 450155525177344,
+  "unused_flops": 4967366656,
+  "work": {
+    "training_forward": 82046046437376,
+    "training_backward": 164092092874752,
+    "newton_schulz": 199295668060160,
+    "probe_gradient": 4721717805056
+  },
+  "reporting_flops": 562278678528,
+  "reporting_seconds": 0.05933119999826886,
+  "elapsed_seconds": 70.4370121000029,
+  "peak_cuda_allocated_bytes": 611228160,
+  "selected_steps": 1979,
+  "completed_steps": 1979,
+  "reporting": {
+    "loss": 1.6494297475858768,
+    "accuracy": 0.5066964285714286,
+    "tokens": 27776
+  },
+  "probe_stats": {
+    "train_seconds": 67.95922089988017,
+    "probe_seconds": 0.9143169000017224,
+    "evaluation_seconds": 0.0,
+    "snapshot_seconds": 0.0,
+    "probes": 38,
+    "fallbacks": 37,
+    "clamps": 0
+  },
+  "checkpoint": "cap-450160492544000.pt",
+  "candidates": [],
+  "selection": null
+}

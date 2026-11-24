@@ -1,0 +1,122 @@
+{
+  "arm": "muon_search",
+  "seed": 6,
+  "measurements": [
+    {
+      "cap_flops": 225080246272000,
+      "charged_flops": 224965596463104,
+      "unused_flops": 114649808896,
+      "work": {
+        "training_forward": 40919377379328,
+        "training_backward": 81838754758656,
+        "newton_schulz": 99396070932480,
+        "tuning_validation": 2811393392640
+      },
+      "reporting_flops": 562278678528,
+      "reporting_seconds": 0.05924840000079712,
+      "elapsed_seconds": 35.18656069999997,
+      "peak_cuda_allocated_bytes": 537581568,
+      "selected_steps": 679,
+      "completed_steps": 987,
+      "reporting": {
+        "loss": 2.090625536057257,
+        "accuracy": 0.38356854838709675,
+        "tokens": 27776
+      },
+      "probe_stats": {
+        "train_seconds": 23.20963490003487,
+        "probe_seconds": 0.0,
+        "evaluation_seconds": 0.0,
+        "snapshot_seconds": 0.0,
+        "probes": 0,
+        "fallbacks": 0,
+        "clamps": 0
+      },
+      "checkpoint": "attempt-1/cap-225080246272000.pt",
+      "candidates": [
+        {
+          "trial_id": 0,
+          "lr": 0.003,
+          "epsilon": null,
+          "steps": 77,
+          "tuning_loss": 2.473483203193559,
+          "tuning": {
+            "loss": 2.473483203193559,
+            "accuracy": 0.27350950460829493,
+            "tokens": 27776
+          },
+          "charged_flops": 17893457641472,
+          "slot_flops": 18006419701760,
+          "failure": null
+        },
+        {
+          "trial_id": 1,
+          "lr": 0.01,
+          "epsilon": null,
+          "steps": 77,
+          "tuning_loss": 2.322062939542779,
+          "tuning": {
+            "loss": 2.322062939542779,
+            "accuracy": 0.32556883640552997,
+            "tokens": 27776
+          },
+          "charged_flops": 17893457641472,
+          "slot_flops": 18006419701760,
+          "failure": null
+        },
+        {
+          "trial_id": 2,
+          "lr": 0.02,
+          "epsilon": null,
+          "steps": 77,
+          "tuning_loss": 2.244575447750531,
+          "tuning": {
+            "loss": 2.244575447750531,
+            "accuracy": 0.34400201612903225,
+            "tokens": 27776
+          },
+          "charged_flops": 17893457641472,
+          "slot_flops": 18006419701760,
+          "failure": null
+        },
+        {
+          "trial_id": 3,
+          "lr": 0.04,
+          "epsilon": null,
+          "steps": 77,
+          "tuning_loss": 2.213831344507806,
+          "tuning": {
+            "loss": 2.213831344507806,
+            "accuracy": 0.3501944124423963,
+            "tokens": 27776
+          },
+          "charged_flops": 17893457641472,
+          "slot_flops": 18006419701760,
+          "failure": null
+        },
+        {
+          "trial_id": 4,
+          "lr": 0.08,
+          "epsilon": null,
+          "steps": 77,
+          "tuning_loss": 2.484490495672973,
+          "tuning": {
+            "loss": 2.484490495672973,
+            "accuracy": 0.2803139400921659,
+            "tokens": 27776
+          },
+          "charged_flops": 17893457641472,
+          "slot_flops": 18006419701760,
+          "failure": null
+        }
+      ],
+      "selection": {
+        "trial_id": 3,
+        "from_step": 77,
+        "edge": false,
+        "final_step": 679
+      }
+    }
+  ],
+  "common_update": null
+}

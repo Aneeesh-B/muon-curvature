@@ -1,0 +1,117 @@
+[04:32:15] core-seeds-6-8: 6/36 campaigns, 0 failures, last event 0s ago, 65.4 GiB free
+[04:33:00] core-seeds-6-8: 6/36 campaigns, 0 failures, last event 0s ago, 65.4 GiB free
+[04:33:45] core-seeds-6-8: 8/36 campaigns, 0 failures, last event 0s ago, 65.4 GiB free
+[04:34:30] core-seeds-6-8: 9/36 campaigns, 0 failures, last event 0s ago, 65.3 GiB free
+[04:35:15] core-seeds-6-8: 10/36 campaigns, 0 failures, last event 0s ago, 65.3 GiB free
+[04:36:00] core-seeds-6-8: 11/36 campaigns, 0 failures, last event 0s ago, 65.2 GiB free
+[04:36:45] core-seeds-6-8: 11/36 campaigns, 0 failures, last event 0s ago, 65.1 GiB free
+[04:37:30] core-seeds-6-8: 13/36 campaigns, 0 failures, last event 0s ago, 65.0 GiB free
+[04:38:15] core-seeds-6-8: 14/36 campaigns, 0 failures, last event 0s ago, 65.0 GiB free
+[04:39:00] core-seeds-6-8: 15/36 campaigns, 0 failures, last event 0s ago, 65.0 GiB free
+[04:39:45] core-seeds-6-8: 17/36 campaigns, 0 failures, last event 0s ago, 64.9 GiB free
+[04:40:30] core-seeds-6-8: 17/36 campaigns, 0 failures, last event 0s ago, 64.9 GiB free
+[04:41:15] core-seeds-6-8: 18/36 campaigns, 0 failures, last event 0s ago, 64.8 GiB free
+[04:42:00] core-seeds-6-8: 19/36 campaigns, 0 failures, last event 0s ago, 64.7 GiB free
+[04:42:45] core-seeds-6-8: 19/36 campaigns, 0 failures, last event 0s ago, 64.7 GiB free
+[04:43:30] core-seeds-6-8: 21/36 campaigns, 0 failures, last event 0s ago, 64.6 GiB free
+[04:44:15] core-seeds-6-8: 22/36 campaigns, 0 failures, last event 0s ago, 64.6 GiB free
+[04:45:00] core-seeds-6-8: 22/36 campaigns, 0 failures, last event 0s ago, 64.6 GiB free
+[04:45:45] core-seeds-6-8: 23/36 campaigns, 0 failures, last event 0s ago, 64.5 GiB free
+[04:46:30] core-seeds-6-8: 24/36 campaigns, 0 failures, last event 0s ago, 64.4 GiB free
+[04:47:15] core-seeds-6-8: 24/36 campaigns, 0 failures, last event 0s ago, 64.3 GiB free
+[04:48:00] core-seeds-6-8: 25/36 campaigns, 0 failures, last event 0s ago, 64.3 GiB free
+[04:48:45] core-seeds-6-8: 26/36 campaigns, 0 failures, last event 0s ago, 64.2 GiB free
+[04:49:30] core-seeds-6-8: 28/36 campaigns, 0 failures, last event 0s ago, 64.1 GiB free
+[04:50:15] core-seeds-6-8: 28/36 campaigns, 0 failures, last event 0s ago, 64.1 GiB free
+[04:51:00] core-seeds-6-8: 30/36 campaigns, 0 failures, last event 0s ago, 64.1 GiB free
+[04:51:45] core-seeds-6-8: 31/36 campaigns, 0 failures, last event 0s ago, 64.0 GiB free
+[04:52:30] core-seeds-6-8: 31/36 campaigns, 0 failures, last event 0s ago, 64.0 GiB free
+[04:53:16] core-seeds-6-8: 33/36 campaigns, 0 failures, last event 0s ago, 63.9 GiB free
+[04:54:01] core-seeds-6-8: 34/36 campaigns, 0 failures, last event 0s ago, 63.9 GiB free
+[04:54:46] core-seeds-6-8: 35/36 campaigns, 0 failures, last event 0s ago, 63.8 GiB free
+[04:55:31] core-seeds-6-8: 36/36 campaigns, 0 failures, last event 1s ago, 63.8 GiB free
+Verified 36 campaigns and 54 measurements under their FLOP caps
+[04:55:32] Starting extension-seeds-9-11
+[04:55:32] extension-seeds-9-11: 0/36 campaigns, 0 failures, initializing, 63.8 GiB free
+[04:56:17] extension-seeds-9-11: 0/36 campaigns, 0 failures, last event 0s ago, 63.7 GiB free
+[04:57:02] extension-seeds-9-11: 1/36 campaigns, 0 failures, last event 0s ago, 63.6 GiB free
+[04:57:47] extension-seeds-9-11: 1/36 campaigns, 0 failures, last event 0s ago, 63.6 GiB free
+[04:58:32] extension-seeds-9-11: 3/36 campaigns, 0 failures, last event 0s ago, 63.5 GiB free
+[04:59:17] extension-seeds-9-11: 4/36 campaigns, 0 failures, last event 0s ago, 63.5 GiB free
+[05:00:02] extension-seeds-9-11: 6/36 campaigns, 0 failures, last event 0s ago, 63.4 GiB free
+[05:00:47] extension-seeds-9-11: 7/36 campaigns, 0 failures, last event 0s ago, 63.4 GiB free
+[05:01:32] extension-seeds-9-11: 7/36 campaigns, 0 failures, last event 0s ago, 63.4 GiB free
+[05:02:17] extension-seeds-9-11: 9/36 campaigns, 0 failures, last event 0s ago, 63.3 GiB free
+[05:03:02] extension-seeds-9-11: 10/36 campaigns, 0 failures, last event 0s ago, 63.2 GiB free
+[05:03:47] extension-seeds-9-11: 11/36 campaigns, 0 failures, last event 0s ago, 63.2 GiB free
+[05:04:32] extension-seeds-9-11: 11/36 campaigns, 0 failures, last event 0s ago, 63.1 GiB free
+[05:05:17] extension-seeds-9-11: 13/36 campaigns, 0 failures, last event 0s ago, 63.1 GiB free
+[05:06:02] extension-seeds-9-11: 14/36 campaigns, 0 failures, last event 0s ago, 63.0 GiB free
+[05:06:47] extension-seeds-9-11: 15/36 campaigns, 0 failures, last event 0s ago, 63.0 GiB free
+[05:07:32] extension-seeds-9-11: 15/36 campaigns, 0 failures, last event 0s ago, 62.9 GiB free
+[05:08:17] extension-seeds-9-11: 17/36 campaigns, 0 failures, last event 0s ago, 62.8 GiB free
+[05:09:02] extension-seeds-9-11: 18/36 campaigns, 0 failures, last event 0s ago, 62.8 GiB free
+[05:09:47] extension-seeds-9-11: 18/36 campaigns, 0 failures, last event 0s ago, 62.8 GiB free
+[05:10:32] extension-seeds-9-11: 19/36 campaigns, 0 failures, last event 0s ago, 62.7 GiB free
+[05:11:17] extension-seeds-9-11: 21/36 campaigns, 0 failures, last event 0s ago, 62.6 GiB free
+[05:12:02] extension-seeds-9-11: 22/36 campaigns, 0 failures, last event 0s ago, 62.6 GiB free
+[05:12:47] extension-seeds-9-11: 22/36 campaigns, 0 failures, last event 0s ago, 62.6 GiB free
+[05:13:32] extension-seeds-9-11: 23/36 campaigns, 0 failures, last event 0s ago, 62.5 GiB free
+[05:14:17] extension-seeds-9-11: 24/36 campaigns, 0 failures, last event 0s ago, 62.4 GiB free
+[05:15:02] extension-seeds-9-11: 25/36 campaigns, 0 failures, last event 0s ago, 62.4 GiB free
+[05:15:47] extension-seeds-9-11: 26/36 campaigns, 0 failures, last event 0s ago, 62.4 GiB free
+[05:16:32] extension-seeds-9-11: 28/36 campaigns, 0 failures, last event 0s ago, 62.3 GiB free
+[05:17:18] extension-seeds-9-11: 29/36 campaigns, 0 failures, last event 0s ago, 62.3 GiB free
+[05:18:03] extension-seeds-9-11: 30/36 campaigns, 0 failures, last event 0s ago, 62.2 GiB free
+[05:18:48] extension-seeds-9-11: 30/36 campaigns, 0 failures, last event 0s ago, 62.1 GiB free
+[05:19:33] extension-seeds-9-11: 31/36 campaigns, 0 failures, last event 0s ago, 62.1 GiB free
+[05:20:18] extension-seeds-9-11: 32/36 campaigns, 0 failures, last event 0s ago, 62.0 GiB free
+[05:21:03] extension-seeds-9-11: 33/36 campaigns, 0 failures, last event 0s ago, 62.0 GiB free
+[05:21:48] extension-seeds-9-11: 34/36 campaigns, 0 failures, last event 0s ago, 61.9 GiB free
+[05:22:33] extension-seeds-9-11: 35/36 campaigns, 0 failures, last event 0s ago, 61.9 GiB free
+[05:23:18] extension-seeds-9-11: 35/36 campaigns, 0 failures, last event 0s ago, 61.8 GiB free
+Verified 36 campaigns and 54 measurements under their FLOP caps
+[05:23:33] Starting extension-seeds-12-14
+[05:23:33] extension-seeds-12-14: 0/36 campaigns, 0 failures, initializing, 61.8 GiB free
+[05:24:18] extension-seeds-12-14: 0/36 campaigns, 0 failures, last event 0s ago, 61.7 GiB free
+[05:25:03] extension-seeds-12-14: 1/36 campaigns, 0 failures, last event 0s ago, 61.7 GiB free
+[05:25:48] extension-seeds-12-14: 1/36 campaigns, 0 failures, last event 0s ago, 61.6 GiB free
+[05:26:33] extension-seeds-12-14: 3/36 campaigns, 0 failures, last event 0s ago, 61.5 GiB free
+[05:27:18] extension-seeds-12-14: 4/36 campaigns, 0 failures, last event 0s ago, 61.5 GiB free
+[05:28:03] extension-seeds-12-14: 5/36 campaigns, 0 failures, last event 0s ago, 61.4 GiB free
+[05:28:48] extension-seeds-12-14: 6/36 campaigns, 0 failures, last event 0s ago, 61.4 GiB free
+[05:29:33] extension-seeds-12-14: 7/36 campaigns, 0 failures, last event 0s ago, 61.4 GiB free
+[05:30:18] extension-seeds-12-14: 8/36 campaigns, 0 failures, last event 0s ago, 61.3 GiB free
+[05:31:03] extension-seeds-12-14: 8/36 campaigns, 0 failures, last event 0s ago, 61.3 GiB free
+[05:31:48] extension-seeds-12-14: 10/36 campaigns, 0 failures, last event 0s ago, 61.2 GiB free
+[05:32:33] extension-seeds-12-14: 11/36 campaigns, 0 failures, last event 0s ago, 61.2 GiB free
+[05:33:18] extension-seeds-12-14: 13/36 campaigns, 0 failures, last event 0s ago, 61.1 GiB free
+[05:34:03] extension-seeds-12-14: 14/36 campaigns, 0 failures, last event 0s ago, 61.0 GiB free
+[05:34:48] extension-seeds-12-14: 15/36 campaigns, 0 failures, last event 0s ago, 60.9 GiB free
+[05:35:33] extension-seeds-12-14: 15/36 campaigns, 0 failures, last event 0s ago, 60.9 GiB free
+[05:36:18] extension-seeds-12-14: 17/36 campaigns, 0 failures, last event 0s ago, 60.8 GiB free
+[05:37:03] extension-seeds-12-14: 18/36 campaigns, 0 failures, last event 0s ago, 60.8 GiB free
+[05:37:48] extension-seeds-12-14: 18/36 campaigns, 0 failures, last event 0s ago, 60.8 GiB free
+[05:38:33] extension-seeds-12-14: 19/36 campaigns, 0 failures, last event 0s ago, 60.7 GiB free
+[05:39:18] extension-seeds-12-14: 20/36 campaigns, 0 failures, last event 0s ago, 60.6 GiB free
+[05:40:03] extension-seeds-12-14: 20/36 campaigns, 0 failures, last event 0s ago, 60.5 GiB free
+[05:40:48] extension-seeds-12-14: 22/36 campaigns, 0 failures, last event 0s ago, 60.5 GiB free
+[05:41:34] extension-seeds-12-14: 23/36 campaigns, 0 failures, last event 0s ago, 60.4 GiB free
+[05:42:19] extension-seeds-12-14: 24/36 campaigns, 0 failures, last event 0s ago, 60.4 GiB free
+[05:43:04] extension-seeds-12-14: 25/36 campaigns, 0 failures, last event 0s ago, 60.4 GiB free
+[05:43:49] extension-seeds-12-14: 26/36 campaigns, 0 failures, last event 0s ago, 60.3 GiB free
+[05:44:34] extension-seeds-12-14: 28/36 campaigns, 0 failures, last event 0s ago, 60.3 GiB free
+[05:45:19] extension-seeds-12-14: 29/36 campaigns, 0 failures, last event 0s ago, 60.2 GiB free
+[05:46:04] extension-seeds-12-14: 29/36 campaigns, 0 failures, last event 0s ago, 60.2 GiB free
+[05:46:49] extension-seeds-12-14: 31/36 campaigns, 0 failures, last event 0s ago, 60.1 GiB free
+[05:47:34] extension-seeds-12-14: 32/36 campaigns, 0 failures, last event 0s ago, 60.1 GiB free
+[05:48:19] extension-seeds-12-14: 33/36 campaigns, 0 failures, last event 0s ago, 60.0 GiB free
+[05:49:04] extension-seeds-12-14: 33/36 campaigns, 0 failures, last event 0s ago, 60.0 GiB free
+[05:49:49] extension-seeds-12-14: 34/36 campaigns, 0 failures, last event 0s ago, 59.9 GiB free
+[05:50:34] extension-seeds-12-14: 35/36 campaigns, 0 failures, last event 0s ago, 59.8 GiB free
+[05:51:19] extension-seeds-12-14: 35/36 campaigns, 0 failures, last event 0s ago, 59.8 GiB free
+Verified 36 campaigns and 54 measurements under their FLOP caps
+[05:51:32] Running frozen-direction diagnostics for core-seeds-6-8
+[05:53:25] Running frozen-direction diagnostics for extension-seeds-9-11
+[05:55:19] Running frozen-direction diagnostics for extension-seeds-12-14
+[05:57:14] Complete: 3 verified blocks with diagnostics and report
