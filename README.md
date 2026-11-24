@@ -44,6 +44,6 @@ If a result looks surprising, check for concrete problems such as mismatched ini
 
 ## Handoff status
 
-The [5090 experiment plan](docs/5090-overnight-experiment-plan.md) gives exact caps, tuning grids, fallback caps, and preflight checks. The current runner supports wall-time and matched-update pilots. The production comparison still needs the unguarded independent-batch arm, a shared fallback for the two probe arms, AdaGO, and FLOP cap enforcement. The [earlier overnight runbook](docs/overnight.md) describes the existing pilot queue.
+The [5090 experiment plan](docs/5090-overnight-experiment-plan.md) gives the shared protocol. The [4070 experiment plan](docs/4070-overnight-experiment-plan.md) gives coordinated seeds, smaller cap options, and a timing-based preflight. The current runner supports wall-time and matched-update pilots. The production comparison still needs the unguarded independent-batch arm, a shared fallback for the two probe arms, AdaGO, and FLOP cap enforcement. The [earlier overnight runbook](docs/overnight.md) describes the existing pilot queue.
 
 For prior evidence, see the [correctness audit](results/audit_verified/FINDINGS.md), [guarded pilot](results/guarded_pilot/README.md), and [guarded-control ablation](results/guarded_ablation/README.md).
