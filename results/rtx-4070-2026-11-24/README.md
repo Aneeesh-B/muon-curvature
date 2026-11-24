@@ -100,6 +100,4 @@ Counts show how many seeds selected each setting on tuning validation.
 - [Combined comparison CSV](comparison.csv), [loss plot](loss.png), and [wall-time pilot summary](wall-time-pilot.md)
 - [Exact source snapshot](source/) and protocol configuration
 - Per-block manifests, per-campaign results, per-update FLOP and loss logs, and frozen-direction diagnostics beneath the three seed-block directories
-- [Checkpoint inventory](checkpoints.json) with archive names, checksums, and checkpoint paths
-
-The checkpoint ZIPs are intended for the [RTX 4070 results release](https://github.com/Aneeesh-B/muon-curvature/releases/tag/rtx-4070-results-2026-11-24). Extract the ZIPs into this results directory to put the `.pt` files beside their JSON records.
+The run's 189 model and diagnostic checkpoints are retained locally.
