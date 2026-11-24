@@ -1,152 +1,49 @@
-# Curvature-calibrated Muon on tiny NanoGPT
+# Curvature-calibrated Muon
 
-A local CS 182 research pilot for **Can Occasional Curvature Probes Reduce
-Learning-Rate Tuning for Muon?** Uses the actual pinned NanoGPT model with a small
-FP32, single-device training harness. Start with the measured results in
-[`results/INITIAL_FINDINGS.md`](results/INITIAL_FINDINGS.md) and the experiment
-scope in [`docs/experiment.md`](docs/experiment.md).
+Test whether occasional directional-curvature probes choose useful Muon learning rates and earn back their compute compared with learning-rate search. The method keeps Muon’s update direction and layer scaling, and uses a finite-difference estimate of slope divided by curvature to choose one shared scalar for the matrix updates.
 
-For the GPU queue, use the [4070 and 5090 overnight runbook](docs/overnight.md).
+## Models and data
 
-The latest [guarded Muon pilot](results/guarded_pilot/README.md) explains the independent-batch calibration and step check, with its preliminary results.
+| Role | Model | Data |
+|---|---|---|
+| Smoke checks and diagnostics | NanoGPT, **0.81M parameters** ([config](configs/tiny.json)) | Tiny Shakespeare, character-level next-token prediction |
+| Main GPU comparison | NanoGPT, **9.72M parameters**, four layers, width 448, context 128, batch size 16 ([config](configs/wide.json)) | Same Tiny Shakespeare data and fixed splits |
+| Optional transfer study | Larger nanochat model, if the groupmate’s setup is available | Its original corpus and tokenizer. Report this as a separate benchmark. |
 
-The short **equal-compute comparison** gives adaptive Muon, random-search Muon,
-default Muon and random-search AdamW **two minutes each**, one seed. It measures
-reporting-validation loss and next-character accuracy while charging search and
-probe costs. See [`docs/compute-budget.md`](docs/compute-budget.md) for the full
-protocol and [`results/budget/comparison.md`](results/budget/comparison.md) for
-the completed run. Run it with:
+Use FP32 and the same model, initialization, ordinary training batches, and evaluation splits within each paired seed. Keep the Muon direction and companion AdamW settings fixed across Muon variants. Use tuning validation to select search candidates, reporting validation to compare methods, and the reserved test split after the protocol and endpoints are frozen.
 
-```bash
-.venv/bin/python -m curvature_muon.budget \
-  --config configs/budget.json --out runs/budget_seed0 --device cpu
-```
+## Primary comparison
 
-The [correctness audit](results/audit_verified/FINDINGS.md) replays the first
-251 updates, checks finite-difference curvature against independent FP64
-Hessian-vector products, and evaluates proposed steps on fresh batches. It
-finds that the accepted rates improve their own batch but hurt fresh batches;
-repeated fallback then retains an aggressive rate. All 17 tests pass. The
-original optimizer policy and benchmark results are preserved.
+| Arm | What to test |
+|---|---|
+| **Fixed Muon** | Default matrix LR of 0.02. |
+| **Searched Muon** | Tune a constant matrix LR. Charge the search and the selected trial’s continuation to the same compute cap. |
+| **Same-batch curvature Muon** | Estimate the step size on the minibatch that produced the Muon direction, reusing the ordinary gradient. |
+| **Independent-batch curvature Muon** | Estimate the step size on a separately sampled training minibatch. Compute both probe gradients on that batch and preserve the ordinary training stream. |
+| **Searched AdamW** | Apply AdamW to all parameters and tune its LR under the same compute cap. |
+| **Searched AdaGO** | Use the reference adaptive matrix update and tune its step-size settings under the same compute cap. Use the same companion AdamW as Muon. [AdaGO, Algorithm 2](https://arxiv.org/html/2509.02981v1#S2) |
 
-## Setup
+The two curvature arms should differ only in the batch used for measurement. Match their probe cadence, distance, bounds, and invalid-estimate fallback. Hold the accepted LR between probes. The primary arms use constant LRs between changes and run without backtracking or a decay schedule.
 
-From this repository directory:
+## Measurement standards
 
-```bash
-uv venv --python 3.12
-uv pip install --python .venv/bin/python -e .
-.venv/bin/python -m curvature_muon.data
-.venv/bin/python -m unittest discover -s tests -v
-```
+- **Compute efficiency.** Use at least three paired seeds. Measure all six arms at the same low, middle, and high cumulative compute caps. The 5090 targets are approximately **112.54, 225.08, and 450.16 trillion estimated matmul FLOPs**. Charge ordinary training, Newton–Schulz, extra probe passes, all search trials, and tuning validation. Report the actual charged FLOPs and synchronized wall time.
+- **Effect of the estimate.** Compare fixed Muon and both curvature arms at a common update count. At shared early, middle, and late checkpoints, freeze the weights and Muon direction. Score both proposed rates, the fixed rate, and a small LR grid on fresh batches that supplied neither estimate.
+- **Deliverables.** Plot held-out cross-entropy in nats per character versus cumulative FLOPs. Show per-seed differences and means. Save resolved configs, actual compute and updates, search outcomes, probe validity and clamp rates, and failures. Better performance than the same-batch arm supports the batch change. Better performance than searched Muon at equal total compute supports the tuning-cost claim.
 
-Install a CUDA-compatible PyTorch build for your GPU machine using the
-[official PyTorch instructions](https://pytorch.org/get-started/locally/) before
-the editable install if needed. No transformers, tokenizer package, W&B account,
-or datasets package is needed. Python >=3.10, PyTorch >=2.2, NumPy >=1.24.
-Locally the experiments were run with the existing parent environment at
-`../.venv/bin/python` (Python 3.14.5, PyTorch 2.15.0, CPU).
+## Optional ablations
 
-## Reproduce the initial experiment
+- **Backtracking.** Compare independent-batch curvature with and without third-batch backtracking. Include a fixed-proposal backtracking control if testing whether curvature adds value beyond the check.
+- **Scheduled next-batch probing.** Test the groupmate’s schedule against schedule-only Muon and scheduled same-batch probing. Use a common schedule and horizon. Treat replay as a separate follow-up and include the cost of constructing the curve.
 
-```bash
-# 21 very short matched-token runs: 7 configurations x 3 seeds.
-.venv/bin/python -m curvature_muon.suite \
-  --config configs/smoke.json --out runs/smoke_pilot --pilot --seeds 0 1 2
+## Research integrity and sanity checks
 
-# Frozen-direction scans and all stale ages (0, 1, 10, 50, 100).
-# 201 steps covers the age-100 scan for the anchor at step 100.
-.venv/bin/python -m curvature_muon.train \
-  --config configs/smoke.json --mode fixed --steps 201 --diagnostics \
-  --out runs/diagnostics_complete
+Evaluate whether the method helps. Worse loss, a tie, or gains that disappear after charging probe compute are all valid outcomes. Freeze the methods, seeds, tuning rules, and compute caps before production. Report every planned seed and cap, including failures and exclusions with their reasons. Use tuning validation for tuning decisions and keep reporting and test results out of those decisions.
 
-.venv/bin/python -m curvature_muon.report runs/smoke_pilot \
-  --scans runs/diagnostics_complete/scans.jsonl --out results/smoke
-```
+If a result looks surprising, check for concrete problems such as mismatched initialization or batch streams, incorrect LR application or probe-state restoration, invalid losses, and missing FLOP charges. Apply the same checks to every arm. If you confirm a bug, record it, retain the original logs, and rerun all affected comparisons under the corrected protocol. If the checks pass, report the result and its uncertainty. Label any changes inspired by production results as follow-up experiments.
 
-All output directories must be new/empty; existing runs are never overwritten.
-An experiment uses 106,880 parameters and 102,400 training tokens per smoke run.
-The diagnostic trajectory has one additional update to cover the final scan.
+## Handoff status
 
-## Larger tiny-model pilot
+The [5090 experiment plan](docs/5090-overnight-experiment-plan.md) gives exact caps, tuning grids, fallback caps, and preflight checks. The current runner supports wall-time and matched-update pilots. The production comparison still needs the unguarded independent-batch arm, a shared fallback for the two probe arms, AdaGO, and FLOP cap enforcement. The [earlier overnight runbook](docs/overnight.md) describes the existing pilot queue.
 
-```bash
-# Four methods, one seed, ~0.81M parameters, 4.096M tokens per run.
-# Probe start is step 100 here, unlike the initialization stress test above.
-.venv/bin/python -m curvature_muon.suite \
-  --config configs/tiny.json --out runs/tiny_seed0 --device cuda
-
-# Recommended next GPU comparison: 7 configurations x 3 seeds.
-.venv/bin/python -m curvature_muon.suite \
-  --config configs/tiny.json --out runs/tiny_pilot --pilot \
-  --device cuda --seeds 0 1 2
-
-.venv/bin/python -m curvature_muon.train \
-  --config configs/tiny.json --mode fixed --diagnostics \
-  --out runs/tiny_diagnostics --device cuda
-
-.venv/bin/python -m curvature_muon.report runs/tiny_pilot \
-  --scans runs/tiny_diagnostics/scans.jsonl --out results/tiny_pilot
-```
-
-Use `--device cpu` for local runs. MPS, AMP, compilation and distributed
-training are deliberately outside this initial implementation. GPU code is
-provided but has not been validated on a physical GPU in this workspace.
-
-## Optimizer rule
-
-For hidden matrices only, build the momentum-based, layer-scaled Muon direction
-`D` once. The matrix update is `W <- W - eta*D` before decoupled decay.
-
-```text
-epsilon = rho * ||W_matrix||_F / ||D||_F
-s       = sum <g_i, D_i>
-q       = sum <D_i, g_i(W + epsilon D) - g_i(W)> / epsilon
-eta_raw = s / q
-```
-
-The perturbed gradient uses the same minibatch and random state as the original
-forward. Probe parameters restore exactly using saved copies even on exceptions.
-`autograd.grad` does not overwrite training gradients. Momentum advances once,
-when the actual update commits; probing never advances either optimizer.
-
-- `fixed`: fixed Muon rate, default 0.02.
-- `once`: calibrate at `probe_start`, then freeze the accepted rate.
-- `periodic`: calibrate every `probe_every` updates starting at `probe_start`;
-  freeze the entire accepted rate between probes.
-- `adamw`: all parameters with AdamW, a reference at one rate (not tuned).
-
-The default accepted rate is `clip(eta_raw, 1e-5, 0.2)` with safety factor 1.
-Nonpositive curvature, non-descent direction, nonfinite estimates, a zero norm,
-or a numerically unresolved gradient difference reuse the previous rate. Bounds,
-initial rate, companion AdamW rate and probe distance **are still hyperparameters**.
-No extra line search, LR schedule, gradient clipping or hidden smoothing is used.
-Reusing a previous rate does not guarantee descent when momentum makes the
-current direction non-descent.
-
-Embeddings (including positional embeddings), tied output head and normalization
-vectors use companion AdamW at 0.001, betas `(0.9, 0.95)`. Zero weight decay and
-dropout are defaults to isolate calibration; nonzero decay is implemented as
-`W*(1-eta*wd)-eta*D` and is excluded from the curvature model. Muon uses the
-aspect-ratio convention in KellerJordan/Muon, with FP32 Newton-Schulz; see
-[`third_party/README.md`](third_party/README.md) for precise provenance/differences.
-
-## Outputs and interpretation
-
-Each run records resolved config, software/hardware, dataset hash, source hashes,
-seed and revision information in `manifest.json`; all step losses/probes/rates
-in `train.jsonl`; fixed-window held-out validation losses and separated timings
-in `eval.jsonl`; and model/optimizer/RNG states in `final.pt`. Diagnostic runs
-also save anchor checkpoints and `scans.jsonl` with the entire candidate grid,
-quadratic predictions, same/fresh-batch deltas, staleness and distance sweeps.
-Diagnostic checkpoints are pre-update snapshots for investigation; a general
-resume CLI is not implemented.
-
-`report` emits CSV and Markdown tables. `results/` is versionable; large raw
-`runs/`, downloaded text and prepared arrays are Git-ignored. The test split is
-prepared separately and never loaded by the training/diagnostic code.
-
-This experiment tests implementation correctness and whether curvature-selected
-steps generalize to fresh batches. It does not establish reduced tuning cost at
-10M parameters, equal-compute superiority, or transfer to nanochat. AdaGO,
-forward-only probes and branching multi-step continuations remain follow-ups.
+For prior evidence, see the [correctness audit](results/audit_verified/FINDINGS.md), [guarded pilot](results/guarded_pilot/README.md), and [guarded-control ablation](results/guarded_ablation/README.md).
