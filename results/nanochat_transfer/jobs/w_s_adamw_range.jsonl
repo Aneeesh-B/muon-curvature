@@ -1,0 +1,2 @@
+{"name": "w_s_adamw_08", "args": ["--optim", "adamw", "--matrix-lr", "0.0008", "--seed", "0", "--aspect-ratio", "128"]}
+{"name": "w_s_adamw_09", "args": ["--optim", "adamw", "--matrix-lr", "0.0004", "--seed", "0", "--aspect-ratio", "128"]}

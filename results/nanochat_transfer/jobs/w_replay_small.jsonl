@@ -1,0 +1,3 @@
+{"name": "w_rpT_s1", "args": ["--optim", "muon", "--muon-lr-trace", "$PROJECT/traces/v4_screen_geomean_small.json", "--seed", "1", "--aspect-ratio", "128"]}
+{"name": "w_rpT_s2", "args": ["--optim", "muon", "--muon-lr-trace", "$PROJECT/traces/v4_screen_geomean_small.json", "--seed", "2", "--aspect-ratio", "128"]}
+{"name": "w_rpT_s3", "args": ["--optim", "muon", "--muon-lr-trace", "$PROJECT/traces/v4_screen_geomean_small.json", "--seed", "3", "--aspect-ratio", "128"]}

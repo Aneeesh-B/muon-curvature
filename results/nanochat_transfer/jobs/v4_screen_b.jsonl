@@ -1,0 +1,4 @@
+{"name": "v4_smooth_sd10", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--probe-smooth", "--seed", "10"]}
+{"name": "v4_cap_sd10", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-cap", "--seed", "10"]}
+{"name": "v3h_c1_sd10", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--seed", "10"]}
+{"name": "ref_muon_sd10", "args": ["--optim", "muon", "--matrix-lr", "0.0330354", "--seed", "10"]}

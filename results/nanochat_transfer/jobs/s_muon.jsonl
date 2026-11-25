@@ -1,0 +1,8 @@
+{"name": "s_muon_00", "args": ["--optim", "muon", "--matrix-lr", "0.0377844", "--seed", "0"]}
+{"name": "s_muon_01", "args": ["--optim", "muon", "--matrix-lr", "0.00248286", "--seed", "0"]}
+{"name": "s_muon_02", "args": ["--optim", "muon", "--matrix-lr", "0.0330354", "--seed", "0"]}
+{"name": "s_muon_03", "args": ["--optim", "muon", "--matrix-lr", "0.0482096", "--seed", "0"]}
+{"name": "s_muon_04", "args": ["--optim", "muon", "--matrix-lr", "0.00280063", "--seed", "0"]}
+{"name": "s_muon_05", "args": ["--optim", "muon", "--matrix-lr", "0.0558312", "--seed", "0"]}
+{"name": "s_muon_06", "args": ["--optim", "muon", "--matrix-lr", "0.0363147", "--seed", "0"]}
+{"name": "s_muon_07", "args": ["--optim", "muon", "--matrix-lr", "0.0089651", "--seed", "0"]}

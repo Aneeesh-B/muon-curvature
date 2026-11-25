@@ -1,0 +1,1 @@
+{"name": "d_muon_diag", "args": ["--optim", "muon", "--matrix-lr", "0.0330354", "--seed", "0", "--diag-base-steps", "20,190,280"]}

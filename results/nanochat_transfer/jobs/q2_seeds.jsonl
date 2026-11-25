@@ -1,0 +1,18 @@
+{"name": "q2_k10_c1_s1", "args": ["--optim", "curv", "--probe-every", "10", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--seed", "1"]}
+{"name": "q2_k50_c1_s1", "args": ["--optim", "curv", "--probe-every", "50", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--seed", "1"]}
+{"name": "q2_k100_c1_s1", "args": ["--optim", "curv", "--probe-every", "100", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--seed", "1"]}
+{"name": "q2_once_c1_s1", "args": ["--optim", "curv", "--probe-every", "0", "--probe-once-retry", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--seed", "1"]}
+{"name": "q2_k100_c0.5_s1", "args": ["--optim", "curv", "--probe-every", "100", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "1"]}
+{"name": "q2_once_c0.5_s1", "args": ["--optim", "curv", "--probe-every", "0", "--probe-once-retry", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "1"]}
+{"name": "q2_k10_c1_s2", "args": ["--optim", "curv", "--probe-every", "10", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--seed", "2"]}
+{"name": "q2_k50_c1_s2", "args": ["--optim", "curv", "--probe-every", "50", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--seed", "2"]}
+{"name": "q2_k100_c1_s2", "args": ["--optim", "curv", "--probe-every", "100", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--seed", "2"]}
+{"name": "q2_once_c1_s2", "args": ["--optim", "curv", "--probe-every", "0", "--probe-once-retry", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--seed", "2"]}
+{"name": "q2_k100_c0.5_s2", "args": ["--optim", "curv", "--probe-every", "100", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "2"]}
+{"name": "q2_once_c0.5_s2", "args": ["--optim", "curv", "--probe-every", "0", "--probe-once-retry", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "2"]}
+{"name": "q2_k10_c1_s3", "args": ["--optim", "curv", "--probe-every", "10", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--seed", "3"]}
+{"name": "q2_k50_c1_s3", "args": ["--optim", "curv", "--probe-every", "50", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--seed", "3"]}
+{"name": "q2_k100_c1_s3", "args": ["--optim", "curv", "--probe-every", "100", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--seed", "3"]}
+{"name": "q2_once_c1_s3", "args": ["--optim", "curv", "--probe-every", "0", "--probe-once-retry", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--seed", "3"]}
+{"name": "q2_k100_c0.5_s3", "args": ["--optim", "curv", "--probe-every", "100", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "3"]}
+{"name": "q2_once_c0.5_s3", "args": ["--optim", "curv", "--probe-every", "0", "--probe-once-retry", "--probe-start", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "3"]}

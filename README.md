@@ -44,8 +44,25 @@ If a result looks surprising, check for concrete problems such as mismatched ini
 
 ## Handoff status
 
-The [RTX 4070 overnight results](results/rtx-4070-2026-11-24/README.md) cover 162 measurements across nine paired seeds. The results directory includes the combined CSV, loss plot, per-update FLOP logs, frozen-direction diagnostics, and the exact runner source used for the comparison.
+The [RTX 4070 overnight results](results/rtx-4070-2026-11-24/README.md) cover 162 measurements across nine paired seeds (6–14). The results directory includes the combined CSV, loss plot, per-update FLOP logs, frozen-direction diagnostics, and the exact runner source used for the comparison.
 
-The [5090 experiment plan](docs/5090-overnight-experiment-plan.md) gives the shared protocol. The [4070 experiment plan](docs/4070-overnight-experiment-plan.md) gives coordinated seeds, smaller cap options, and a timing-based preflight. The current runner supports wall-time and matched-update pilots. The production comparison still needs the unguarded independent-batch arm, a shared fallback for the two probe arms, AdaGO, and FLOP cap enforcement. The [earlier overnight runbook](docs/overnight.md) describes the existing pilot queue.
+The [RTX 5090 results](results/production/SUMMARY.md) cover seeds 3–7 under the same protocol, plus the optional ablations, an exact-HVP check of the probe, and test-split scores. Seeds 6 and 7 overlap the 4070 run and are compared with it in that summary. The [nanochat records](results/nanochat_transfer/README.md) are a separate benchmark.
+
+The [5090 experiment plan](docs/5090-overnight-experiment-plan.md) gives the shared protocol, and the [4070 experiment plan](docs/4070-overnight-experiment-plan.md) gives the seed split and smaller cap options. The production protocol is implemented in [curvature_muon/production.py](curvature_muon/production.py), with its settings in [configs/production.json](configs/production.json) and tests in [tests/test_production.py](tests/test_production.py). It adds the unguarded independent-batch arm with the shared 0.02 fallback, AdaGO, FLOP-cap enforcement and per-cap searches, the mechanism and isolation checks, the optional ablations, the exact-HVP check, and test-split scoring.
+
+Prepare the data once before running the tests or any experiment:
+
+```bash
+python -m curvature_muon.data
+python -m unittest discover -s tests
+```
+
+Full 5090 queue (resumable; finished campaigns are skipped):
+
+```bash
+PYTHON=.venv/bin/python bash scripts/production.sh
+```
+
+The [earlier overnight runbook](docs/overnight.md) describes the pilot queue.
 
 For prior evidence, see the [correctness audit](results/audit_verified/FINDINGS.md), [guarded pilot](results/guarded_pilot/README.md), and [guarded-control ablation](results/guarded_ablation/README.md).

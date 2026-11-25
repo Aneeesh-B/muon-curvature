@@ -1,0 +1,214 @@
+{
+  "kind": "search",
+  "arm": "adamw_search_followup",
+  "mode": "adamw",
+  "seed": 3,
+  "cap": "middle",
+  "cap_flops": 225080246272000,
+  "slot_flops": 18006419701760,
+  "candidates": [
+    {
+      "id": 0,
+      "rate": 3e-05,
+      "steps": 140,
+      "flops": 17974779691008,
+      "slot_flops": 18006419701760,
+      "tuning": {
+        "loss": 2.5572586433129376,
+        "accuracy": 0.26674107142857145,
+        "tokens": 27776
+      },
+      "failed": null
+    },
+    {
+      "id": 1,
+      "rate": 5e-05,
+      "steps": 140,
+      "flops": 17974779691008,
+      "slot_flops": 18006419701760,
+      "tuning": {
+        "loss": 2.531902704370736,
+        "accuracy": 0.26411290322580644,
+        "tokens": 27776
+      },
+      "failed": null
+    },
+    {
+      "id": 2,
+      "rate": 0.0001,
+      "steps": 140,
+      "flops": 17974779691008,
+      "slot_flops": 18006419701760,
+      "tuning": {
+        "loss": 2.498590778095931,
+        "accuracy": 0.27170938940092165,
+        "tokens": 27776
+      },
+      "failed": null
+    },
+    {
+      "id": 3,
+      "rate": 0.0002,
+      "steps": 140,
+      "flops": 17974779691008,
+      "slot_flops": 18006419701760,
+      "tuning": {
+        "loss": 2.4940519343872776,
+        "accuracy": 0.2682891705069124,
+        "tokens": 27776
+      },
+      "failed": null
+    },
+    {
+      "id": 4,
+      "rate": 0.0003,
+      "steps": 140,
+      "flops": 17974779691008,
+      "slot_flops": 18006419701760,
+      "tuning": {
+        "loss": 2.5030441317140784,
+        "accuracy": 0.26893721198156684,
+        "tokens": 27776
+      },
+      "failed": null
+    }
+  ],
+  "selected": {
+    "id": 3,
+    "rate": 0.0002,
+    "steps": 140,
+    "flops": 17974779691008,
+    "slot_flops": 18006419701760,
+    "tuning": {
+      "loss": 2.4940519343872776,
+      "accuracy": 0.2682891705069124,
+      "tokens": 27776
+    },
+    "failed": null
+  },
+  "continued_from_step": 140,
+  "winner_on_grid_edge": false,
+  "points": [
+    {
+      "cap": "middle",
+      "cap_flops": 225080246272000,
+      "flops": 225069531316224,
+      "unused_flops": 10714955776,
+      "eligible": true,
+      "selected_trajectory_steps": 1227,
+      "training_characters": 3659776,
+      "lr": 0.0002,
+      "reporting": {
+        "loss": 1.7100568954845727,
+        "accuracy": 0.4868591589861751,
+        "tokens": 27776
+      },
+      "failed": null,
+      "weights": "weights_middle.pt",
+      "work_seconds": 12.09389901306713,
+      "elapsed_seconds": 12.579872584014083
+    }
+  ],
+  "trials": [
+    {
+      "id": 0,
+      "mode": "adamw",
+      "initial_lr": 3e-05,
+      "final_lr": 3e-05,
+      "steps": 140,
+      "failed": null,
+      "invalid_rate": null,
+      "clamp_rate": null,
+      "train_seconds": 0.9450450379808899,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.0,
+      "snapshot_seconds": 0.0,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0,
+      "probe_passes": 0,
+      "guard_forwards": 0
+    },
+    {
+      "id": 1,
+      "mode": "adamw",
+      "initial_lr": 5e-05,
+      "final_lr": 5e-05,
+      "steps": 140,
+      "failed": null,
+      "invalid_rate": null,
+      "clamp_rate": null,
+      "train_seconds": 0.9281285549368476,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.0,
+      "snapshot_seconds": 0.0,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0,
+      "probe_passes": 0,
+      "guard_forwards": 0
+    },
+    {
+      "id": 2,
+      "mode": "adamw",
+      "initial_lr": 0.0001,
+      "final_lr": 0.0001,
+      "steps": 140,
+      "failed": null,
+      "invalid_rate": null,
+      "clamp_rate": null,
+      "train_seconds": 0.9217717819119571,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.0,
+      "snapshot_seconds": 0.0,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0,
+      "probe_passes": 0,
+      "guard_forwards": 0
+    },
+    {
+      "id": 3,
+      "mode": "adamw",
+      "initial_lr": 0.0002,
+      "final_lr": 0.0002,
+      "steps": 1227,
+      "failed": null,
+      "invalid_rate": null,
+      "clamp_rate": null,
+      "train_seconds": 8.156913394937874,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.0,
+      "snapshot_seconds": 0.0,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0,
+      "probe_passes": 0,
+      "guard_forwards": 0
+    },
+    {
+      "id": 4,
+      "mode": "adamw",
+      "initial_lr": 0.0003,
+      "final_lr": 0.0003,
+      "steps": 140,
+      "failed": null,
+      "invalid_rate": null,
+      "clamp_rate": null,
+      "train_seconds": 0.93657341292419,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.0,
+      "snapshot_seconds": 0.0,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0,
+      "probe_passes": 0,
+      "guard_forwards": 0
+    }
+  ],
+  "elapsed_seconds": 12.57996511401143,
+  "work_seconds": 12.09389901306713,
+  "off_budget_seconds": 0.07167448599648196,
+  "reporting_flops": 562278678528,
+  "peak_cuda_allocated_bytes": 1086769152
+}

@@ -1,0 +1,8 @@
+{"name": "w_s_adamw_00", "args": ["--optim", "adamw", "--matrix-lr", "0.00277551", "--seed", "0", "--aspect-ratio", "128"]}
+{"name": "w_s_adamw_01", "args": ["--optim", "adamw", "--matrix-lr", "0.01912", "--seed", "0", "--aspect-ratio", "128"]}
+{"name": "w_s_adamw_02", "args": ["--optim", "adamw", "--matrix-lr", "0.0035648", "--seed", "0", "--aspect-ratio", "128"]}
+{"name": "w_s_adamw_03", "args": ["--optim", "adamw", "--matrix-lr", "0.0169586", "--seed", "0", "--aspect-ratio", "128"]}
+{"name": "w_s_adamw_04", "args": ["--optim", "adamw", "--matrix-lr", "0.0042018", "--seed", "0", "--aspect-ratio", "128"]}
+{"name": "w_s_adamw_05", "args": ["--optim", "adamw", "--matrix-lr", "0.0292529", "--seed", "0", "--aspect-ratio", "128"]}
+{"name": "w_s_adamw_06", "args": ["--optim", "adamw", "--matrix-lr", "0.00155602", "--seed", "0", "--aspect-ratio", "128"]}
+{"name": "w_s_adamw_07", "args": ["--optim", "adamw", "--matrix-lr", "0.00631802", "--seed", "0", "--aspect-ratio", "128"]}

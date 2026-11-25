@@ -1,0 +1,6 @@
+{"name": "rp_v4trace_s1", "args": ["--optim", "muon", "--muon-lr-trace", "$PROJECT/traces/v4_screen_geomean_small.json", "--seed", "1"]}
+{"name": "rp_v4trace_s2", "args": ["--optim", "muon", "--muon-lr-trace", "$PROJECT/traces/v4_screen_geomean_small.json", "--seed", "2"]}
+{"name": "rp_v4trace_s3", "args": ["--optim", "muon", "--muon-lr-trace", "$PROJECT/traces/v4_screen_geomean_small.json", "--seed", "3"]}
+{"name": "rp_v4trace_s7", "args": ["--optim", "muon", "--muon-lr-trace", "$PROJECT/traces/v4_screen_geomean_small.json", "--seed", "7"]}
+{"name": "rp_v4trace_s8", "args": ["--optim", "muon", "--muon-lr-trace", "$PROJECT/traces/v4_screen_geomean_small.json", "--seed", "8"]}
+{"name": "rp_v4trace_s9", "args": ["--optim", "muon", "--muon-lr-trace", "$PROJECT/traces/v4_screen_geomean_small.json", "--seed", "9"]}

@@ -1,0 +1,9 @@
+{"name": "f_ssmuon_s1", "args": ["--optim", "muon", "--matrix-lr", "0.0300123", "--lr-shape", "linear", "--lr-warmdown-ratio", "0.4999", "--lr-final-frac", "0.01368", "--seed", "1"]}
+{"name": "f_ssmuon_s2", "args": ["--optim", "muon", "--matrix-lr", "0.0300123", "--lr-shape", "linear", "--lr-warmdown-ratio", "0.4999", "--lr-final-frac", "0.01368", "--seed", "2"]}
+{"name": "f_ssmuon_s3", "args": ["--optim", "muon", "--matrix-lr", "0.0300123", "--lr-shape", "linear", "--lr-warmdown-ratio", "0.4999", "--lr-final-frac", "0.01368", "--seed", "3"]}
+{"name": "f_ssmuon_s7", "args": ["--optim", "muon", "--matrix-lr", "0.0300123", "--lr-shape", "linear", "--lr-warmdown-ratio", "0.4999", "--lr-final-frac", "0.01368", "--seed", "7"]}
+{"name": "f_ssmuon_s8", "args": ["--optim", "muon", "--matrix-lr", "0.0300123", "--lr-shape", "linear", "--lr-warmdown-ratio", "0.4999", "--lr-final-frac", "0.01368", "--seed", "8"]}
+{"name": "f_ssmuon_s9", "args": ["--optim", "muon", "--matrix-lr", "0.0300123", "--lr-shape", "linear", "--lr-warmdown-ratio", "0.4999", "--lr-final-frac", "0.01368", "--seed", "9"]}
+{"name": "w_ssmuonT_s1", "args": ["--optim", "muon", "--matrix-lr", "0.0300123", "--lr-shape", "linear", "--lr-warmdown-ratio", "0.4999", "--lr-final-frac", "0.01368", "--seed", "1", "--aspect-ratio", "128"]}
+{"name": "w_ssmuonT_s2", "args": ["--optim", "muon", "--matrix-lr", "0.0300123", "--lr-shape", "linear", "--lr-warmdown-ratio", "0.4999", "--lr-final-frac", "0.01368", "--seed", "2", "--aspect-ratio", "128"]}
+{"name": "w_ssmuonT_s3", "args": ["--optim", "muon", "--matrix-lr", "0.0300123", "--lr-shape", "linear", "--lr-warmdown-ratio", "0.4999", "--lr-final-frac", "0.01368", "--seed", "3", "--aspect-ratio", "128"]}

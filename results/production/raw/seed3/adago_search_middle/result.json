@@ -1,0 +1,247 @@
+{
+  "kind": "search",
+  "arm": "adago_search",
+  "mode": "adago",
+  "seed": 3,
+  "cap": "middle",
+  "cap_flops": 225080246272000,
+  "slot_flops": 18006419701760,
+  "candidates": [
+    {
+      "id": 0,
+      "rate": [
+        0.02,
+        0.0001
+      ],
+      "steps": 77,
+      "flops": 17893457641472,
+      "slot_flops": 18006419701760,
+      "tuning": {
+        "loss": 2.47099322547561,
+        "accuracy": 0.27516561059907835,
+        "tokens": 27776
+      },
+      "failed": null
+    },
+    {
+      "id": 1,
+      "rate": [
+        0.05,
+        0.0005
+      ],
+      "steps": 77,
+      "flops": 17893457641472,
+      "slot_flops": 18006419701760,
+      "tuning": {
+        "loss": 2.4466486416654103,
+        "accuracy": 0.28189804147465436,
+        "tokens": 27776
+      },
+      "failed": null
+    },
+    {
+      "id": 2,
+      "rate": [
+        0.1,
+        0.0005
+      ],
+      "steps": 77,
+      "flops": 17893457641472,
+      "slot_flops": 18006419701760,
+      "tuning": {
+        "loss": 2.4109109986212944,
+        "accuracy": 0.2980270737327189,
+        "tokens": 27776
+      },
+      "failed": null
+    },
+    {
+      "id": 3,
+      "rate": [
+        0.3,
+        0.0005
+      ],
+      "steps": 77,
+      "flops": 17893457641472,
+      "slot_flops": 18006419701760,
+      "tuning": {
+        "loss": 2.4610066556710803,
+        "accuracy": 0.2879104262672811,
+        "tokens": 27776
+      },
+      "failed": null
+    },
+    {
+      "id": 4,
+      "rate": [
+        0.3,
+        0.003
+      ],
+      "steps": 77,
+      "flops": 17893457641472,
+      "slot_flops": 18006419701760,
+      "tuning": {
+        "loss": 2.4610066556710803,
+        "accuracy": 0.2879104262672811,
+        "tokens": 27776
+      },
+      "failed": null
+    }
+  ],
+  "selected": {
+    "id": 2,
+    "rate": [
+      0.1,
+      0.0005
+    ],
+    "steps": 77,
+    "flops": 17893457641472,
+    "slot_flops": 18006419701760,
+    "tuning": {
+      "loss": 2.4109109986212944,
+      "accuracy": 0.2980270737327189,
+      "tokens": 27776
+    },
+    "failed": null
+  },
+  "continued_from_step": 77,
+  "winner_on_grid_edge": false,
+  "points": [
+    {
+      "cap": "middle",
+      "cap_flops": 225080246272000,
+      "flops": 224965596463104,
+      "unused_flops": 114649808896,
+      "eligible": true,
+      "selected_trajectory_steps": 679,
+      "training_characters": 2021376,
+      "lr": 0.1,
+      "reporting": {
+        "loss": 1.64881716785343,
+        "accuracy": 0.5083165322580645,
+        "tokens": 27776
+      },
+      "failed": null,
+      "weights": "weights_middle.pt",
+      "work_seconds": 21.745777488053136,
+      "elapsed_seconds": 22.3298128680035
+    }
+  ],
+  "trials": [
+    {
+      "id": 0,
+      "mode": "adago",
+      "initial_lr": [
+        0.02,
+        0.0001
+      ],
+      "final_lr": 0.02,
+      "steps": 77,
+      "failed": null,
+      "invalid_rate": null,
+      "clamp_rate": null,
+      "train_seconds": 1.7232676109779277,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.0,
+      "snapshot_seconds": 0.0,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0,
+      "probe_passes": 0,
+      "guard_forwards": 0
+    },
+    {
+      "id": 1,
+      "mode": "adago",
+      "initial_lr": [
+        0.05,
+        0.0005
+      ],
+      "final_lr": 0.05,
+      "steps": 77,
+      "failed": null,
+      "invalid_rate": null,
+      "clamp_rate": null,
+      "train_seconds": 1.8548530869738897,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.0,
+      "snapshot_seconds": 0.0,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0,
+      "probe_passes": 0,
+      "guard_forwards": 0
+    },
+    {
+      "id": 2,
+      "mode": "adago",
+      "initial_lr": [
+        0.1,
+        0.0005
+      ],
+      "final_lr": 0.1,
+      "steps": 679,
+      "failed": null,
+      "invalid_rate": null,
+      "clamp_rate": null,
+      "train_seconds": 13.934671565039025,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.0,
+      "snapshot_seconds": 0.0,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0,
+      "probe_passes": 0,
+      "guard_forwards": 0
+    },
+    {
+      "id": 3,
+      "mode": "adago",
+      "initial_lr": [
+        0.3,
+        0.0005
+      ],
+      "final_lr": 0.3,
+      "steps": 77,
+      "failed": null,
+      "invalid_rate": null,
+      "clamp_rate": null,
+      "train_seconds": 1.9647058099799324,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.0,
+      "snapshot_seconds": 0.0,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0,
+      "probe_passes": 0,
+      "guard_forwards": 0
+    },
+    {
+      "id": 4,
+      "mode": "adago",
+      "initial_lr": [
+        0.3,
+        0.003
+      ],
+      "final_lr": 0.3,
+      "steps": 77,
+      "failed": null,
+      "invalid_rate": null,
+      "clamp_rate": null,
+      "train_seconds": 2.0551702459924854,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.0,
+      "snapshot_seconds": 0.0,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0,
+      "probe_passes": 0,
+      "guard_forwards": 0
+    }
+  ],
+  "elapsed_seconds": 22.329900226002792,
+  "work_seconds": 21.745777488053136,
+  "off_budget_seconds": 0.06504367599700345,
+  "reporting_flops": 562278678528,
+  "peak_cuda_allocated_bytes": 969996288
+}

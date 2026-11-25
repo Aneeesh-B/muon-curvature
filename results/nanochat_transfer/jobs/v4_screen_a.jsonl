@@ -1,0 +1,4 @@
+{"name": "v4_start50_sd0", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "50", "--probe-until", "-2", "--seed", "0"]}
+{"name": "v4_smooth_sd0", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--probe-smooth", "--seed", "0"]}
+{"name": "v4_cap_sd0", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-cap", "--seed", "0"]}
+{"name": "v4_start50_sd10", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "50", "--probe-until", "-2", "--seed", "10"]}
