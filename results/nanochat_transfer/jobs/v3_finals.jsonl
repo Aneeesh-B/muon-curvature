@@ -1,0 +1,9 @@
+{"name": "f_v3_s1", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--seed", "1"]}
+{"name": "f_v3_s2", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--seed", "2"]}
+{"name": "f_v3_s3", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--seed", "3"]}
+{"name": "cf_v3_s4", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--seed", "4"]}
+{"name": "cf_v3_s5", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--seed", "5"]}
+{"name": "cf_v3_s6", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--seed", "6"]}
+{"name": "w_v3_s1", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--seed", "1", "--aspect-ratio", "128"]}
+{"name": "w_v3_s2", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--seed", "2", "--aspect-ratio", "128"]}
+{"name": "w_v3_s3", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--seed", "3", "--aspect-ratio", "128"]}

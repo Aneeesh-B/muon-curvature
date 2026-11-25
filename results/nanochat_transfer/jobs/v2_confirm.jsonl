@@ -1,0 +1,6 @@
+{"name": "cf_v2_s4", "args": ["--optim", "curv", "--probe-sched", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--probe-scale", "0.5", "--seed", "4"]}
+{"name": "cf_v2_s5", "args": ["--optim", "curv", "--probe-sched", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--probe-scale", "0.5", "--seed", "5"]}
+{"name": "cf_v2_s6", "args": ["--optim", "curv", "--probe-sched", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--probe-scale", "0.5", "--seed", "6"]}
+{"name": "cf_muon_s4", "args": ["--optim", "muon", "--matrix-lr", "0.0330354", "--seed", "4"]}
+{"name": "cf_muon_s5", "args": ["--optim", "muon", "--matrix-lr", "0.0330354", "--seed", "5"]}
+{"name": "cf_muon_s6", "args": ["--optim", "muon", "--matrix-lr", "0.0330354", "--seed", "6"]}

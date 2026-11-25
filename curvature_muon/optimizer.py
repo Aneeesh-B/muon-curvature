@@ -196,3 +196,45 @@ def split_parameters(model):
     assert {id(p) for p in hidden}.isdisjoint({id(p) for p in auxiliary})
     assert len(hidden) + len(auxiliary) == len(list(model.parameters()))
     return hidden, auxiliary
+
+
+class AdaGO(torch.optim.Optimizer):
+    """AdaGO matrix update (Zhang, Liu and Schaeffer 2025, Algorithm 2), per matrix.
+
+        M_t   = mu M_{t-1} + (1 - mu) G_t
+        v_t^2 = v_{t-1}^2 + min(||G_t||_F^2, gamma^2),   v_0 given
+        W_t   = W_{t-1} - max(eps, eta * min(||G_t||_F, gamma) / v_t) * Orth(M_t)
+
+    Orth uses this repo's five Newton-Schulz iterations. No Nesterov update, no
+    aspect-ratio multiplier and no weight decay, following the 5090 plan.
+    """
+    def __init__(self, params, lr=0.1, eps=5e-4, momentum=0.95, gamma=1.0, v0=1e-6, ns_steps=5):
+        params = list(params)
+        if not params or any(p.ndim != 2 for p in params):
+            raise ValueError("AdaGO needs a nonempty collection of 2D matrices")
+        if lr <= 0 or eps < 0 or not 0 <= momentum < 1 or gamma <= 0 or v0 <= 0 or ns_steps < 1:
+            raise ValueError("Invalid AdaGO configuration")
+        super().__init__(params, dict(lr=lr, eps=eps, momentum=momentum, gamma=gamma, v0=v0, ns_steps=ns_steps))
+
+    @torch.no_grad()
+    def step(self):
+        steps = []
+        for group in self.param_groups:
+            for p in group["params"]:
+                if p.grad is None:
+                    raise RuntimeError("All AdaGO parameters must have gradients before step()")
+                if not torch.isfinite(p.grad).all():
+                    raise FloatingPointError("Nonfinite training gradient")
+                state = self.state[p]
+                if not state:
+                    state["momentum_buffer"] = torch.zeros_like(p)
+                    state["v2"] = group["v0"] ** 2
+                g = p.grad
+                state["momentum_buffer"].mul_(group["momentum"]).add_(g, alpha=1 - group["momentum"])
+                norm = math.sqrt(dot([g], [g]))
+                clipped = min(norm, group["gamma"])
+                state["v2"] += clipped ** 2
+                alpha = max(group["eps"], group["lr"] * clipped / math.sqrt(state["v2"]))
+                p.add_(orthogonalize(state["momentum_buffer"], group["ns_steps"]), alpha=-alpha)
+                steps.append(alpha)
+        return steps

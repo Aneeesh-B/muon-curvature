@@ -44,6 +44,28 @@ If a result looks surprising, check for concrete problems such as mismatched ini
 
 ## Handoff status
 
-The [5090 experiment plan](docs/5090-overnight-experiment-plan.md) gives the shared protocol. The [4070 experiment plan](docs/4070-overnight-experiment-plan.md) gives coordinated seeds, smaller cap options, and a timing-based preflight. The current runner supports wall-time and matched-update pilots. The production comparison still needs the unguarded independent-batch arm, a shared fallback for the two probe arms, AdaGO, and FLOP cap enforcement. The [earlier overnight runbook](docs/overnight.md) describes the existing pilot queue.
+The [5090 experiment plan](docs/5090-overnight-experiment-plan.md) gives the shared protocol, and the
+[4070 experiment plan](docs/4070-overnight-experiment-plan.md) gives coordinated seeds and smaller cap options. The
+production protocol is implemented in
+[curvature_muon/production.py](curvature_muon/production.py) and frozen in [configs/production.json](configs/production.json):
+
+- the unguarded independent-batch arm, plus a shared fallback to 0.02 for both probe arms;
+- the AdaGO baseline (Algorithm 2) with the five frozen (eta, epsilon) pairs;
+- the estimated-matmul-FLOP counter (it reproduces the plan's table exactly), with a cap scheduler that reserves the
+  next whole update, including any due probe;
+- per-cap search campaigns: 8% slots, a tuning pass, then continuation of the winner;
+- the frozen-direction mechanism check, the update-1000 isolation check, the optional ablations (backtracking,
+  scheduled probing, tuned scheduled Muon, replay), a GPU finite-difference-versus-HVP fidelity check, and scoring on
+  the sealed test split last.
+
+[tests/test_production.py](tests/test_production.py) covers the new paths. To run the whole queue (resumable), use:
+
+```bash
+PYTHON=.venv/bin/python bash scripts/production.sh   # all stages, then results/production/REPORT.md
+```
+
+The 5090 results are in [results/production/REPORT.md](results/production/REPORT.md), with a
+[cross-card check](results/production/CROSS_CARD_CHECK.md) of the seeds both GPUs ran. The groupmate's nanochat benchmark
+records are in [results/nanochat_transfer/](results/nanochat_transfer/README.md).
 
 For prior evidence, see the [correctness audit](results/audit_verified/FINDINGS.md), [guarded pilot](results/guarded_pilot/README.md), and [guarded-control ablation](results/guarded_ablation/README.md).

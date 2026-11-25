@@ -1,0 +1,9 @@
+{"name": "w_curv_s1", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "1", "--aspect-ratio", "128"]}
+{"name": "w_muonT_s1", "args": ["--optim", "muon", "--matrix-lr", "0.0330354", "--seed", "1", "--aspect-ratio", "128"]}
+{"name": "w_adago_s1", "args": ["--optim", "adago", "--adago-eta", "0.5", "--seed", "1", "--aspect-ratio", "128"]}
+{"name": "w_curv_s2", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "2", "--aspect-ratio", "128"]}
+{"name": "w_muonT_s2", "args": ["--optim", "muon", "--matrix-lr", "0.0330354", "--seed", "2", "--aspect-ratio", "128"]}
+{"name": "w_adago_s2", "args": ["--optim", "adago", "--adago-eta", "0.5", "--seed", "2", "--aspect-ratio", "128"]}
+{"name": "w_curv_s3", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "3", "--aspect-ratio", "128"]}
+{"name": "w_muonT_s3", "args": ["--optim", "muon", "--matrix-lr", "0.0330354", "--seed", "3", "--aspect-ratio", "128"]}
+{"name": "w_adago_s3", "args": ["--optim", "adago", "--adago-eta", "0.5", "--seed", "3", "--aspect-ratio", "128"]}

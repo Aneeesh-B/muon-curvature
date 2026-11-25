@@ -1,0 +1,6 @@
+{"name": "s_adago_00", "args": ["--optim", "adago", "--adago-eta", "0.0987831", "--seed", "0"]}
+{"name": "s_adago_01", "args": ["--optim", "adago", "--adago-eta", "0.0524784", "--seed", "0"]}
+{"name": "s_adago_02", "args": ["--optim", "adago", "--adago-eta", "0.27805", "--seed", "0"]}
+{"name": "s_adago_03", "args": ["--optim", "adago", "--adago-eta", "0.0782425", "--seed", "0"]}
+{"name": "s_adago_04", "args": ["--optim", "adago", "--adago-eta", "0.0806713", "--seed", "0"]}
+{"name": "s_adago_05", "args": ["--optim", "adago", "--adago-eta", "0.0112681", "--seed", "0"]}

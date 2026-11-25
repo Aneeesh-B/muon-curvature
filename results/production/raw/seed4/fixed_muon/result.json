@@ -1,0 +1,402 @@
+{
+  "kind": "trajectory",
+  "arm": "fixed_muon",
+  "mode": "fixed",
+  "seed": 4,
+  "points": [
+    {
+      "cap": "low",
+      "cap_flops": 112540123136000,
+      "flops": 112540123136000,
+      "unused_flops": 0,
+      "eligible": true,
+      "selected_trajectory_steps": 500,
+      "training_characters": 1024000,
+      "lr": 0.02,
+      "reporting": {
+        "loss": 1.6918387105388026,
+        "accuracy": 0.49737183179723504,
+        "tokens": 27776
+      },
+      "failed": null,
+      "weights": "weights_low.pt",
+      "work_seconds": 12.817283178970683,
+      "elapsed_seconds": 13.680815428000642
+    },
+    {
+      "cap": "middle",
+      "cap_flops": 225080246272000,
+      "flops": 225080246272000,
+      "unused_flops": 0,
+      "eligible": true,
+      "selected_trajectory_steps": 1000,
+      "training_characters": 2048000,
+      "lr": 0.02,
+      "reporting": {
+        "loss": 1.6055323885333153,
+        "accuracy": 0.5151209677419355,
+        "tokens": 27776
+      },
+      "failed": null,
+      "weights": "weights_middle.pt",
+      "work_seconds": 25.61839850097749,
+      "elapsed_seconds": 27.048559265000222
+    },
+    {
+      "cap": "high",
+      "cap_flops": 450160492544000,
+      "flops": 450160492544000,
+      "unused_flops": 0,
+      "eligible": true,
+      "selected_trajectory_steps": 2000,
+      "training_characters": 4096000,
+      "lr": 0.02,
+      "reporting": {
+        "loss": 1.5470617701930385,
+        "accuracy": 0.5387024769585254,
+        "tokens": 27776
+      },
+      "failed": null,
+      "weights": "weights_high.pt",
+      "work_seconds": 50.29790627903276,
+      "elapsed_seconds": 51.959768442000495
+    }
+  ],
+  "isolation": {
+    "step": 1000,
+    "flops": 225080246272000,
+    "lr": 0.02,
+    "reporting": {
+      "loss": 1.6055323885333153,
+      "accuracy": 0.5151209677419355,
+      "tokens": 27776
+    },
+    "stats": {
+      "train_seconds": 25.477754719904624,
+      "probe_seconds": 0.0,
+      "evaluation_seconds": 0.0,
+      "snapshot_seconds": 0.0,
+      "probes": 0,
+      "fallbacks": 0,
+      "clamps": 0,
+      "probe_passes": 0,
+      "guard_forwards": 0
+    },
+    "weights": "weights_update1000.pt"
+  },
+  "trial": {
+    "id": 0,
+    "mode": "fixed",
+    "initial_lr": 0.02,
+    "final_lr": 0.02,
+    "steps": 2000,
+    "failed": null,
+    "invalid_rate": null,
+    "clamp_rate": null,
+    "train_seconds": 50.01810934807145,
+    "probe_seconds": 0.0,
+    "evaluation_seconds": 0.0,
+    "snapshot_seconds": 0.0,
+    "probes": 0,
+    "fallbacks": 0,
+    "clamps": 0,
+    "probe_passes": 0,
+    "guard_forwards": 0
+  },
+  "mechanism": [
+    {
+      "seed": 4,
+      "step": 100,
+      "base_fresh_loss": 2.0647576451301575,
+      "fixed_rate": 0.02,
+      "grid": [
+        {
+          "rate": 0.0,
+          "fresh_loss": 2.0647576451301575,
+          "delta": 0.0
+        },
+        {
+          "rate": 0.001,
+          "fresh_loss": 2.0639529526233673,
+          "delta": -0.0008046925067901611
+        },
+        {
+          "rate": 0.003,
+          "fresh_loss": 2.06253981590271,
+          "delta": -0.0022178292274475098
+        },
+        {
+          "rate": 0.005,
+          "fresh_loss": 2.0613855123519897,
+          "delta": -0.0033721327781677246
+        },
+        {
+          "rate": 0.01,
+          "fresh_loss": 2.059613138437271,
+          "delta": -0.0051445066928863525
+        },
+        {
+          "rate": 0.02,
+          "fresh_loss": 2.060664623975754,
+          "delta": -0.0040930211544036865
+        },
+        {
+          "rate": 0.04,
+          "fresh_loss": 2.0796076953411102,
+          "delta": 0.014850050210952759
+        },
+        {
+          "rate": 0.08,
+          "fresh_loss": 2.1719728112220764,
+          "delta": 0.10721516609191895
+        },
+        {
+          "rate": 0.16,
+          "fresh_loss": 2.4743462204933167,
+          "delta": 0.4095885753631592
+        },
+        {
+          "rate": 0.2,
+          "fresh_loss": 2.643163025379181,
+          "delta": 0.5784053802490234
+        }
+      ],
+      "best_grid_rate": 0.01,
+      "best_grid_loss": 2.059613138437271,
+      "proposals": {
+        "same_batch": {
+          "rate": 0.07097369894947786,
+          "decision": "accepted",
+          "measurement": {
+            "s": 6.775706058175028,
+            "q": 95.46784454616446,
+            "eta_raw": 0.07097369894947786,
+            "epsilon": 0.0010811123596706931,
+            "gradient_difference_ratio": 0.03333057259781906,
+            "status": "ok"
+          },
+          "fresh_loss": 2.145900994539261,
+          "delta": 0.0811433494091034,
+          "helps_vs_zero": false,
+          "helps_vs_fixed": false,
+          "regret": 0.08628785610198975
+        },
+        "independent": {
+          "rate": 0.014258146841731885,
+          "decision": "accepted",
+          "measurement": {
+            "s": 0.9392605391979956,
+            "q": 65.87535881233126,
+            "eta_raw": 0.014258146841731885,
+            "epsilon": 0.0010811123596706931,
+            "gradient_difference_ratio": 0.024762143261636217,
+            "status": "ok"
+          },
+          "fresh_loss": 2.059327721595764,
+          "delta": -0.0054299235343933105,
+          "helps_vs_zero": true,
+          "helps_vs_fixed": true,
+          "regret": -0.000285416841506958
+        }
+      }
+    },
+    {
+      "seed": 4,
+      "step": 500,
+      "base_fresh_loss": 1.5782246738672256,
+      "fixed_rate": 0.02,
+      "grid": [
+        {
+          "rate": 0.0,
+          "fresh_loss": 1.5782246738672256,
+          "delta": 0.0
+        },
+        {
+          "rate": 0.001,
+          "fresh_loss": 1.5778700858354568,
+          "delta": -0.00035458803176879883
+        },
+        {
+          "rate": 0.003,
+          "fresh_loss": 1.5772257894277573,
+          "delta": -0.0009988844394683838
+        },
+        {
+          "rate": 0.005,
+          "fresh_loss": 1.5766670405864716,
+          "delta": -0.0015576332807540894
+        },
+        {
+          "rate": 0.01,
+          "fresh_loss": 1.5756440162658691,
+          "delta": -0.0025806576013565063
+        },
+        {
+          "rate": 0.02,
+          "fresh_loss": 1.5752845853567123,
+          "delta": -0.0029400885105133057
+        },
+        {
+          "rate": 0.04,
+          "fresh_loss": 1.58151575922966,
+          "delta": 0.003291085362434387
+        },
+        {
+          "rate": 0.08,
+          "fresh_loss": 1.623388722538948,
+          "delta": 0.04516404867172241
+        },
+        {
+          "rate": 0.16,
+          "fresh_loss": 1.8273038268089294,
+          "delta": 0.2490791529417038
+        },
+        {
+          "rate": 0.2,
+          "fresh_loss": 1.9794310927391052,
+          "delta": 0.4012064188718796
+        }
+      ],
+      "best_grid_rate": 0.02,
+      "best_grid_loss": 1.5752845853567123,
+      "proposals": {
+        "same_batch": {
+          "rate": 0.2,
+          "decision": "clamped",
+          "measurement": {
+            "s": 9.933623119199316,
+            "q": 33.50293132435726,
+            "eta_raw": 0.29650011884116495,
+            "epsilon": 0.002267383453588234,
+            "gradient_difference_ratio": 0.19474132006102043,
+            "status": "ok"
+          },
+          "fresh_loss": 1.9794310927391052,
+          "delta": 0.4012064188718796,
+          "helps_vs_zero": false,
+          "helps_vs_fixed": false,
+          "regret": 0.4041465073823929
+        },
+        "independent": {
+          "rate": 0.017969352915597408,
+          "decision": "accepted",
+          "measurement": {
+            "s": 0.3106952091418058,
+            "q": 17.290283662475247,
+            "eta_raw": 0.017969352915597408,
+            "epsilon": 0.002267383453588234,
+            "gradient_difference_ratio": 0.03841908798981171,
+            "status": "ok"
+          },
+          "fresh_loss": 1.5751690417528152,
+          "delta": -0.0030556321144104004,
+          "helps_vs_zero": true,
+          "helps_vs_fixed": true,
+          "regret": -0.00011554360389709473
+        }
+      }
+    },
+    {
+      "seed": 4,
+      "step": 1000,
+      "base_fresh_loss": 1.4564762115478516,
+      "fixed_rate": 0.02,
+      "grid": [
+        {
+          "rate": 0.0,
+          "fresh_loss": 1.4564762115478516,
+          "delta": 0.0
+        },
+        {
+          "rate": 0.001,
+          "fresh_loss": 1.4563862085342407,
+          "delta": -9.000301361083984e-05
+        },
+        {
+          "rate": 0.003,
+          "fresh_loss": 1.4562316536903381,
+          "delta": -0.00024455785751342773
+        },
+        {
+          "rate": 0.005,
+          "fresh_loss": 1.4561080038547516,
+          "delta": -0.0003682076930999756
+        },
+        {
+          "rate": 0.01,
+          "fresh_loss": 1.4559294879436493,
+          "delta": -0.0005467236042022705
+        },
+        {
+          "rate": 0.02,
+          "fresh_loss": 1.4561971575021744,
+          "delta": -0.00027905404567718506
+        },
+        {
+          "rate": 0.04,
+          "fresh_loss": 1.4591613113880157,
+          "delta": 0.0026850998401641846
+        },
+        {
+          "rate": 0.08,
+          "fresh_loss": 1.474959746003151,
+          "delta": 0.018483534455299377
+        },
+        {
+          "rate": 0.16,
+          "fresh_loss": 1.5477868467569351,
+          "delta": 0.09131063520908356
+        },
+        {
+          "rate": 0.2,
+          "fresh_loss": 1.6053431183099747,
+          "delta": 0.1488669067621231
+        }
+      ],
+      "best_grid_rate": 0.01,
+      "best_grid_loss": 1.4559294879436493,
+      "proposals": {
+        "same_batch": {
+          "rate": 0.02,
+          "decision": "fallback",
+          "measurement": {
+            "s": 7.11155574858429,
+            "q": -131.6217541617993,
+            "eta_raw": null,
+            "epsilon": 0.0032057662855935307,
+            "gradient_difference_ratio": 0.2933036842942244,
+            "status": "nonpositive_curvature"
+          },
+          "fresh_loss": 1.4561971575021744,
+          "delta": -0.00027905404567718506,
+          "helps_vs_zero": true,
+          "helps_vs_fixed": false,
+          "regret": 0.00026766955852508545
+        },
+        "independent": {
+          "rate": 0.0005076180465227205,
+          "decision": "accepted",
+          "measurement": {
+            "s": 0.005575111037505003,
+            "q": 10.98288580497791,
+            "eta_raw": 0.0005076180465227205,
+            "epsilon": 0.0032057662855935307,
+            "gradient_difference_ratio": 0.07176194589619786,
+            "status": "ok"
+          },
+          "fresh_loss": 1.4564294219017029,
+          "delta": -4.678964614868164e-05,
+          "helps_vs_zero": true,
+          "helps_vs_fixed": false,
+          "regret": 0.0004999339580535889
+        }
+      }
+    }
+  ],
+  "probe_over_train": 0.0,
+  "elapsed_seconds": 51.96032200299669,
+  "work_seconds": 50.29790627903276,
+  "off_budget_seconds": 1.2430356529948767,
+  "reporting_flops": 2249114714112,
+  "peak_cuda_allocated_bytes": 681363456
+}

@@ -1,0 +1,159 @@
+{
+  "training_config": "configs/wide.json",
+  "caps": {
+    "low": 112540123136000,
+    "middle": 225080246272000,
+    "high": 450160492544000
+  },
+  "fallback_caps": {
+    "low": 90032098508800,
+    "middle": 180064197017600,
+    "high": 360128394035200
+  },
+  "slot_percent": 8,
+  "preflight_seed": 0,
+  "seeds": [
+    3,
+    4,
+    5
+  ],
+  "extra_seeds": [
+    6,
+    7
+  ],
+  "single_arms": [
+    "fixed_muon",
+    "same_batch_muon",
+    "independent_muon"
+  ],
+  "search_arms": [
+    "muon_search",
+    "adamw_search",
+    "adago_search"
+  ],
+  "search_grids": {
+    "muon_search": [
+      0.003,
+      0.01,
+      0.02,
+      0.04,
+      0.08
+    ],
+    "adamw_search": [
+      0.0003,
+      0.001,
+      0.003,
+      0.006,
+      0.01
+    ],
+    "adago_search": [
+      [
+        0.02,
+        0.0001
+      ],
+      [
+        0.05,
+        0.0005
+      ],
+      [
+        0.1,
+        0.0005
+      ],
+      [
+        0.3,
+        0.0005
+      ],
+      [
+        0.3,
+        0.003
+      ]
+    ]
+  },
+  "mechanism": {
+    "arm": "fixed_muon",
+    "anchors": [
+      100,
+      500,
+      1000
+    ],
+    "fresh_batches": 8,
+    "grid": [
+      0.0,
+      0.001,
+      0.003,
+      0.005,
+      0.01,
+      0.02,
+      0.04,
+      0.08,
+      0.16,
+      0.2
+    ]
+  },
+  "isolation_step": 1000,
+  "isolation_arms": [
+    "fixed_muon",
+    "same_batch_muon",
+    "independent_muon"
+  ],
+  "ablations": {
+    "backtracking_arms": [
+      "guarded_muon",
+      "guarded_base_muon"
+    ],
+    "scheduled_horizons": [
+      500,
+      1000,
+      2000
+    ],
+    "scheduled_arms": [
+      "scheduled_fixed_muon",
+      "scheduled_same_batch_muon",
+      "scheduled_heldout_muon"
+    ],
+    "scheduled_search_peaks": [
+      0.003,
+      0.01,
+      0.02,
+      0.04,
+      0.08
+    ],
+    "replay_development_seeds": [
+      10,
+      11
+    ],
+    "replay_source_arm": "scheduled_heldout_muon"
+  },
+  "followup_note": "Added after production: every AdamW search and most high-cap AdaGO searches won on a grid edge. Same protocol, grids shifted past that edge. Reported separately as a follow-up.",
+  "followup_grids": {
+    "adamw_search": [
+      3e-05,
+      5e-05,
+      0.0001,
+      0.0002,
+      0.0003
+    ],
+    "adago_search": [
+      [
+        0.3,
+        0.003
+      ],
+      [
+        0.5,
+        0.003
+      ],
+      [
+        1.0,
+        0.003
+      ],
+      [
+        0.5,
+        0.01
+      ],
+      [
+        1.0,
+        0.01
+      ]
+    ]
+  }
+}

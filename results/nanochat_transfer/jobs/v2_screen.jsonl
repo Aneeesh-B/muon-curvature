@@ -1,0 +1,5 @@
+{"name": "v2_once25", "args": ["--optim", "curv", "--probe-sched", "--probe-eps-rel", "1e-3", "--seed", "0", "--probe-every", "0", "--probe-once-retry", "--probe-start", "25"]}
+{"name": "v2_once40", "args": ["--optim", "curv", "--probe-sched", "--probe-eps-rel", "1e-3", "--seed", "0", "--probe-every", "0", "--probe-once-retry", "--probe-start", "40"]}
+{"name": "v2_k25_untilwd", "args": ["--optim", "curv", "--probe-sched", "--probe-eps-rel", "1e-3", "--seed", "0", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2"]}
+{"name": "v2_k25_untilwd_c0.5", "args": ["--optim", "curv", "--probe-sched", "--probe-eps-rel", "1e-3", "--seed", "0", "--probe-every", "25", "--probe-start", "25", "--probe-until", "-2", "--probe-scale", "0.5"]}
+{"name": "v2_k25_all", "args": ["--optim", "curv", "--probe-sched", "--probe-eps-rel", "1e-3", "--seed", "0", "--probe-every", "25", "--probe-start", "25"]}

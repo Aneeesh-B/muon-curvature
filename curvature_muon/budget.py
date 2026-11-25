@@ -25,7 +25,8 @@ import torch
 from third_party.nanogpt.model import GPT, GPTConfig
 from .data import Batches, DATA, ROOT
 from .diagnostics import append_json
-from .optimizer import Muon, probe, independent_probe, backtrack, replay_rng, rng_state, select_lr, split_parameters
+from .optimizer import (AdaGO, Muon, probe, independent_probe, backtrack, replay_rng, rng_state, select_lr,
+                        split_parameters)
 
 METHOD_MODES = {
     "guarded_base_muon": "guarded_base",
@@ -33,13 +34,24 @@ METHOD_MODES = {
     "adaptive_muon": "periodic",
     "muon_search": "fixed",
     "default_muon": "fixed",
+    "fixed_muon": "fixed",
     "adamw_search": "adamw",
     "scheduled_fixed_muon": "scheduled_fixed",
     "scheduled_same_batch_muon": "scheduled_same_batch",
     "scheduled_heldout_muon": "scheduled_heldout",
+    # 5090 production protocol (docs/5090-overnight-experiment-plan.md).
+    "same_batch_muon": "same_batch",
+    "independent_muon": "independent",
+    "adago_search": "adago",
+    "scheduled_search": "scheduled_fixed",
+    "scheduled_replay_muon": "scheduled_replay",
 }
 METHODS = tuple(METHOD_MODES)
 SCHEDULED_PROBES = ("scheduled_same_batch", "scheduled_heldout")
+# Unguarded periodic probe arms of the production protocol. Both fall back to the
+# base rate (config["lr"]) on an invalid estimate, unlike the older "periodic".
+PRODUCTION_PROBES = ("same_batch", "independent")
+PERIODIC_PROBES = ("periodic", "guarded", "guarded_base") + PRODUCTION_PROBES
 
 
 def schedule_multiplier(step, updates, warmup=40):
@@ -117,7 +129,11 @@ class Trial:
             self.model = GPT(self.model_config).to(self.device)
             hidden, auxiliary = split_parameters(self.model)
             self.muon = (Muon(hidden, lr=lr, momentum=config["momentum"],
-                              weight_decay=config["weight_decay"]) if mode != "adamw" else None)
+                              weight_decay=config["weight_decay"]) if mode not in ("adamw", "adago") else None)
+            # AdaGO candidates are (eta, epsilon) pairs; it keeps the companion AdamW.
+            self.adago = (AdaGO(hidden, lr=lr[0], eps=lr[1], momentum=config.get("adago_momentum", 0.95),
+                                gamma=config.get("adago_gamma", 1.0), v0=config.get("adago_v0", 1e-6))
+                          if mode == "adago" else None)
             params = list(self.model.parameters()) if mode == "adamw" else auxiliary
             self.adam = torch.optim.AdamW([
                 dict(params=[p for p in params if p.ndim >= 2], weight_decay=config["weight_decay"]),
@@ -128,9 +144,12 @@ class Trial:
         self.generator = torch.Generator().manual_seed(1000+seed)
         self.calibration_generator = torch.Generator().manual_seed(2000+seed)
         self.schedule = dict(peak=lr, latest=lr) if mode.startswith("scheduled_") else None
+        if mode == "scheduled_replay" and len(config.get("lr_trace", [])) < config["steps"]:
+            raise ValueError("scheduled_replay needs config['lr_trace'] covering every update")
         self.step = 0
         self.stats = dict(train_seconds=0.0, probe_seconds=0.0, evaluation_seconds=0.0,
-                          snapshot_seconds=0.0, probes=0, fallbacks=0, clamps=0)
+                          snapshot_seconds=0.0, probes=0, fallbacks=0, clamps=0, probe_passes=0,
+                          guard_forwards=0)
         self.best = None
         self.best_weights = None
         self.last_eval_seconds = 0.0
@@ -139,7 +158,25 @@ class Trial:
 
     @property
     def lr(self):
+        if self.adago:
+            return self.adago.param_groups[0]["lr"]
         return self.muon.param_groups[0]["lr"] if self.muon else self.adam.param_groups[0]["lr"]
+
+    def probe_due(self):
+        """Whether the NEXT update runs a curvature probe (single source of truth)."""
+        c = self.config
+        if self.mode in SCHEDULED_PROBES:
+            return self.step > 0 and self.step % 25 == 0
+        return (self.mode in PERIODIC_PROBES and self.step >= c["probe_start"]
+                and (self.step-c["probe_start"]) % c["probe_every"] == 0)
+
+    def probe_work(self):
+        """Worst-case extra work of the next update: (hidden-matrix gradient passes, guard forwards)."""
+        if not self.probe_due():
+            return 0, 0
+        if self.mode in ("guarded", "guarded_base"):
+            return 2, 7  # independent probe, then a baseline plus at most six backtracking forwards
+        return (2, 0) if self.mode in ("independent", "scheduled_heldout") else (1, 0)
 
     def set_muon_lr(self, rate):
         for group in self.muon.param_groups:
@@ -169,9 +206,12 @@ class Trial:
             direction = self.muon.prepare() if self.muon else None
             record = dict(step=self.step, train_loss=loss.item())
             c = self.config
-            if self.schedule is not None:
+            due = self.probe_due()
+            if self.mode == "scheduled_replay":
+                self.set_muon_lr(c["lr_trace"][self.step])
+            elif self.schedule is not None:
                 decay_start = c["steps"] - round(0.65 * c["steps"])
-                if self.mode in SCHEDULED_PROBES and self.step > 0 and self.step % 25 == 0:
+                if self.mode in SCHEDULED_PROBES and due:
                     t = now(self.device)
                     measurement = self.scheduled_probe(direction, batch, state, rng_state())
                     rate, decision = select_lr(measurement, self.schedule["latest"],
@@ -185,10 +225,18 @@ class Trial:
                 if self.step > decay_start and self.mode in SCHEDULED_PROBES:
                     rate = min(rate, self.schedule["latest"])
                 self.set_muon_lr(rate)
-            elif (self.mode in ("periodic", "guarded", "guarded_base") and self.step >= c["probe_start"]
-                    and (self.step-c["probe_start"]) % c["probe_every"] == 0):
+            elif due:
                 t = now(self.device)
-                if self.mode in ("guarded", "guarded_base"):
+                if self.mode in PRODUCTION_PROBES:
+                    if self.mode == "same_batch":
+                        measurement = probe(direction, lambda: self.model(*batch)[1], state, c["relative_distance"])
+                    else:
+                        # A separate seeded draw; the ordinary training stream is untouched.
+                        calibration = self.batches.get("train", self.calibration_generator)
+                        measurement = independent_probe(direction, lambda: self.model(*calibration)[1],
+                                                        rng_state(), c["relative_distance"])
+                    rate, decision = select_lr(measurement, c["lr"], c["lr_min"], c["lr_max"], c["safety"])
+                elif self.mode in ("guarded", "guarded_base"):
                     calibration = self.batches.get("train", self.calibration_generator)
                     check = self.batches.get("train", self.calibration_generator)
                     probe_rng = rng_state()
@@ -209,8 +257,19 @@ class Trial:
                 self.stats["probes"] += 1
                 self.stats["fallbacks"] += record["decision"] == "fallback"
                 self.stats["clamps"] += record["decision"] == "clamped"
+                # Count the gradient passes that actually ran (the shifted pass is
+                # skipped only when the displacement is undefined).
+                independent = self.mode in ("independent", "guarded", "guarded_base", "scheduled_heldout")
+                shifted = record["probe"]["status"] != "zero_or_invalid_norm"
+                record["probe_passes"] = int(independent) + int(shifted)
+                self.stats["probe_passes"] += record["probe_passes"]
+                if "guard" in record:
+                    record["guard_forwards"] = 1 + record["guard"]["trials"]
+                    self.stats["guard_forwards"] += record["guard_forwards"]
             if self.muon:
                 self.muon.step(direction)
+            if self.adago:
+                record["adago_steps"] = self.adago.step()
             self.adam.step()
             self.rng = rng_state()
         self.step += 1
@@ -234,6 +293,7 @@ class Trial:
 
     def state_dict(self):
         return dict(model=self.model.state_dict(), muon=self.muon.state_dict() if self.muon else None,
+                    adago=self.adago.state_dict() if self.adago else None,
                     adam=self.adam.state_dict(), rng=self.rng, train_generator=self.generator.get_state(), calibration_generator=self.calibration_generator.get_state(),
                     step=self.step, stats=copy.deepcopy(self.stats), config=self.config,
                     model_config=asdict(self.model_config), mode=self.mode, seed=self.seed,
@@ -245,6 +305,8 @@ class Trial:
         self.adam.load_state_dict(state["adam"])
         if self.muon:
             self.muon.load_state_dict(state["muon"])
+        if self.adago:
+            self.adago.load_state_dict(state["adago"])
         self.rng = state["rng"]
         self.generator.set_state(state["train_generator"])
         if "calibration_generator" in state:
