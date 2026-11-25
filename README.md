@@ -44,6 +44,8 @@ If a result looks surprising, check for concrete problems such as mismatched ini
 
 ## Handoff status
 
+The [RTX 4070 overnight results](results/rtx-4070-2026-11-24/README.md) cover 162 measurements across nine paired seeds. The results directory includes the combined CSV, loss plot, per-update FLOP logs, frozen-direction diagnostics, and the exact runner source used for the comparison.
+
 The [5090 experiment plan](docs/5090-overnight-experiment-plan.md) gives the shared protocol. The [4070 experiment plan](docs/4070-overnight-experiment-plan.md) gives coordinated seeds, smaller cap options, and a timing-based preflight. The current runner supports wall-time and matched-update pilots. The production comparison still needs the unguarded independent-batch arm, a shared fallback for the two probe arms, AdaGO, and FLOP cap enforcement. The [earlier overnight runbook](docs/overnight.md) describes the existing pilot queue.
 
 For prior evidence, see the [correctness audit](results/audit_verified/FINDINGS.md), [guarded pilot](results/guarded_pilot/README.md), and [guarded-control ablation](results/guarded_ablation/README.md).
