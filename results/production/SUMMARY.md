@@ -85,7 +85,7 @@ The 8%-slot search is a weak baseline:
   horizon down to 5% of the peak, and a probe every 25 steps.
   - The next-batch probe trails peak-tuned scheduled Muon at H = 500 and H = 1000 (+0.150 and +0.033, 0/5 seeds). It
     ties at H = 2000 (+0.006, p = 0.29).
-  - Replaying a frozen probe LR curve ties the live probe.
+  - Replaying a frozen probe LR curve does not differ significantly from the live probe (p ≥ 0.2).
   - The nanochat gain does not transfer to this model.
 - **Extended grids.**
   - AdamW selected its lower edge (3e-4) in every search, and AdaGO usually selected its upper edge at 450.2T.
@@ -104,13 +104,12 @@ seeds. The 36 shared cells are in [cross_card_seeds_6_7.csv](cross_card_seeds_6_
 
 **What matches.**
 - FLOP charges, update counts and all 18 search selections are identical.
-- The arms without a probe agree within 0.011, and AdamW within 10⁻⁴.
+- Fixed Muon, searched AdamW and searched AdaGO agree within 0.011, and AdamW within 10⁻⁴. Searched Muon differs by up
+  to 0.079 (seed 6, 225.1T, where both runs continued at LR 0.04).
 
 **What diverges.**
 - The probe arms agree at 112.5T, then diverge: by up to 0.15 at 225.1T and 0.23 at 450.2T (seed 7, independent
-  batch: 1.513 against 1.746).
-- The likely cause is that small floating-point differences between the devices change the rates the probe selects,
-  after which the trajectories separate.
+  batch: 1.513 against 1.746). No probe-by-probe comparison was made, so the cause is not established.
 - The low-cap effect replicates: -0.063 here and -0.064 on the 4070 over seeds 6–14.
 
 **Pooling.** For pooled analyses, treat 5090 seeds 3–5 as new seeds and 6 and 7 as replicates.
