@@ -1,0 +1,4 @@
+{"name": "s_adago_06", "args": ["--optim", "adago", "--adago-eta", "0.0467522", "--seed", "0"]}
+{"name": "s_adago_07", "args": ["--optim", "adago", "--adago-eta", "0.0893487", "--seed", "0"]}
+{"name": "s_adago_08", "args": ["--optim", "adago", "--adago-eta", "0.5", "--seed", "0"]}
+{"name": "s_adago_09", "args": ["--optim", "adago", "--adago-eta", "1.0", "--seed", "0"]}

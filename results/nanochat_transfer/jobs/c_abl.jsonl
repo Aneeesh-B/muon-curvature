@@ -1,0 +1,7 @@
+{"name": "c_k25_c0.1", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.1", "--seed", "0"]}
+{"name": "c_k25_c0.25", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.25", "--seed", "0"]}
+{"name": "c_k25_c0.5", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "0"]}
+{"name": "c_k100_c0.1", "args": ["--optim", "curv", "--probe-every", "100", "--probe-eps-rel", "1e-3", "--probe-scale", "0.1", "--seed", "0"]}
+{"name": "c_k100_c0.25", "args": ["--optim", "curv", "--probe-every", "100", "--probe-eps-rel", "1e-3", "--probe-scale", "0.25", "--seed", "0"]}
+{"name": "c_k100_c0.5", "args": ["--optim", "curv", "--probe-every", "100", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "0"]}
+{"name": "k_once_valid", "args": ["--optim", "curv", "--probe-every", "0", "--probe-once-retry", "--probe-eps-rel", "1e-3", "--seed", "0"]}

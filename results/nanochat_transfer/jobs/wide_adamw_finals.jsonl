@@ -1,0 +1,6 @@
+{"name": "w_adamwT_s1", "args": ["--optim", "adamw", "--matrix-lr", "0.00330383", "--seed", "1", "--aspect-ratio", "128"]}
+{"name": "w_f_adamw_s1", "args": ["--optim", "adamw", "--matrix-lr", "0.0004", "--seed", "1", "--aspect-ratio", "128"]}
+{"name": "w_adamwT_s2", "args": ["--optim", "adamw", "--matrix-lr", "0.00330383", "--seed", "2", "--aspect-ratio", "128"]}
+{"name": "w_f_adamw_s2", "args": ["--optim", "adamw", "--matrix-lr", "0.0004", "--seed", "2", "--aspect-ratio", "128"]}
+{"name": "w_adamwT_s3", "args": ["--optim", "adamw", "--matrix-lr", "0.00330383", "--seed", "3", "--aspect-ratio", "128"]}
+{"name": "w_f_adamw_s3", "args": ["--optim", "adamw", "--matrix-lr", "0.0004", "--seed", "3", "--aspect-ratio", "128"]}

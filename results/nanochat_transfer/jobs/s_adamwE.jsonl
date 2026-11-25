@@ -1,0 +1,8 @@
+{"name": "s_adamwE_00", "args": ["--optim", "adamw", "--matrix-lr", "0.00330383", "--seed", "0", "--adamw-eps", "1e-10"]}
+{"name": "s_adamwE_01", "args": ["--optim", "adamw", "--matrix-lr", "0.00208748", "--seed", "0", "--adamw-eps", "1e-10"]}
+{"name": "s_adamwE_02", "args": ["--optim", "adamw", "--matrix-lr", "0.000829873", "--seed", "0", "--adamw-eps", "1e-10"]}
+{"name": "s_adamwE_03", "args": ["--optim", "adamw", "--matrix-lr", "0.000546758", "--seed", "0", "--adamw-eps", "1e-10"]}
+{"name": "s_adamwE_04", "args": ["--optim", "adamw", "--matrix-lr", "0.00278636", "--seed", "0", "--adamw-eps", "1e-10"]}
+{"name": "s_adamwE_05", "args": ["--optim", "adamw", "--matrix-lr", "0.00536166", "--seed", "0", "--adamw-eps", "1e-10"]}
+{"name": "s_adamwE_06", "args": ["--optim", "adamw", "--matrix-lr", "0.00524041", "--seed", "0", "--adamw-eps", "1e-10"]}
+{"name": "s_adamwE_07", "args": ["--optim", "adamw", "--matrix-lr", "0.00779249", "--seed", "0", "--adamw-eps", "1e-10"]}

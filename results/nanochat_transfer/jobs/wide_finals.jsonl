@@ -1,0 +1,3 @@
+{"name": "w_f_muon_s1", "args": ["--optim", "muon", "--matrix-lr", "0.0192106", "--seed", "1", "--aspect-ratio", "128"]}
+{"name": "w_f_muon_s2", "args": ["--optim", "muon", "--matrix-lr", "0.0192106", "--seed", "2", "--aspect-ratio", "128"]}
+{"name": "w_f_muon_s3", "args": ["--optim", "muon", "--matrix-lr", "0.0192106", "--seed", "3", "--aspect-ratio", "128"]}

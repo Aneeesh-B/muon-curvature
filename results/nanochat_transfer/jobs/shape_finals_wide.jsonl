@@ -1,0 +1,3 @@
+{"name": "w_f_ssmuon_s1", "args": ["--optim", "muon", "--matrix-lr", "0.043184", "--lr-shape", "exp", "--lr-warmdown-ratio", "0.3347", "--lr-final-frac", "0.04226", "--aspect-ratio", "128", "--seed", "1"]}
+{"name": "w_f_ssmuon_s2", "args": ["--optim", "muon", "--matrix-lr", "0.043184", "--lr-shape", "exp", "--lr-warmdown-ratio", "0.3347", "--lr-final-frac", "0.04226", "--aspect-ratio", "128", "--seed", "2"]}
+{"name": "w_f_ssmuon_s3", "args": ["--optim", "muon", "--matrix-lr", "0.043184", "--lr-shape", "exp", "--lr-warmdown-ratio", "0.3347", "--lr-final-frac", "0.04226", "--aspect-ratio", "128", "--seed", "3"]}

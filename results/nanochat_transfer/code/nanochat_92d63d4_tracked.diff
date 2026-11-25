@@ -1,0 +1,71 @@
+diff --git a/nanochat/dataloader.py b/nanochat/dataloader.py
+index 4cb2279..f7a385c 100644
+--- a/nanochat/dataloader.py
++++ b/nanochat/dataloader.py
+@@ -20,7 +20,7 @@ import torch
+ import pyarrow.parquet as pq
+ 
+ from nanochat.common import get_dist_info
+-from nanochat.dataset import list_parquet_files
++from nanochat.dataset import list_parquet_files, select_split
+ 
+ def _document_batches(split, resume_state_dict, tokenizer_batch_size):
+     """
+@@ -35,7 +35,7 @@ def _document_batches(split, resume_state_dict, tokenizer_batch_size):
+     warn_on_legacy = ddp_rank == 0 and split == "train" # rank 0 on train split will warn on legacy
+     parquet_paths = list_parquet_files(warn_on_legacy=warn_on_legacy)
+     assert len(parquet_paths) != 0, "No dataset parquet files found, did you run dataset.py?"
+-    parquet_paths = parquet_paths[:-1] if split == "train" else parquet_paths[-1:]
++    parquet_paths = select_split(parquet_paths, split)
+ 
+     resume_pq_idx = resume_state_dict["pq_idx"] if resume_state_dict is not None else 0
+     resume_rg_idx = resume_state_dict["rg_idx"] if resume_state_dict is not None else None
+@@ -93,7 +93,7 @@ def tokenizing_distributed_data_loader_with_state_bos_bestfit(
+     - 100% utilization (no padding, every token is trained on)
+     - Approximately 35% of all tokens are discarded due to cropping
+     """
+-    assert split in ["train", "val"], "split must be 'train' or 'val'"
++    assert split in ["train", "val", "test", "fresh"], "split must be train/val/test/fresh"
+ 
+     row_capacity = T + 1
+     batches = _document_batches(split, resume_state_dict, tokenizer_batch_size)
+diff --git a/nanochat/dataset.py b/nanochat/dataset.py
+index fffe722..958dafe 100644
+--- a/nanochat/dataset.py
++++ b/nanochat/dataset.py
+@@ -70,9 +70,7 @@ def parquets_iter_batched(split, start=0, step=1):
+     - split can be "train" or "val". the last parquet file will be val.
+     - start/step are useful for skipping rows in DDP. e.g. start=rank, step=world_size
+     """
+-    assert split in ["train", "val"], "split must be 'train' or 'val'"
+-    parquet_paths = list_parquet_files()
+-    parquet_paths = parquet_paths[:-1] if split == "train" else parquet_paths[-1:]
++    parquet_paths = select_split(list_parquet_files(), split)
+     for filepath in parquet_paths:
+         pf = pq.ParquetFile(filepath)
+         for rg_idx in range(start, pf.num_row_groups, step):
+@@ -80,6 +78,24 @@ def parquets_iter_batched(split, start=0, step=1):
+             texts = rg.column('text').to_pylist()
+             yield texts
+ 
++def select_split(parquet_paths, split):
++    """
++    CS182 curvature-Muon project: four-way split of the downloaded shards (sorted by name).
++    - val   = last shard            (hyperparameter selection, model comparison)
++    - test  = second-to-last shard  (reserved for final evaluation only)
++    - fresh = third-to-last shard   (fresh minibatches for the diagnostic experiments)
++    - train = all remaining shards  (optimization; also tokenizer training)
++    """
++    assert split in ["train", "val", "test", "fresh"], f"unknown split {split}"
++    assert len(parquet_paths) >= 4, "need at least 4 shards for train/fresh/test/val"
++    if split == "train":
++        return parquet_paths[:-3]
++    if split == "fresh":
++        return parquet_paths[-3:-2]
++    if split == "test":
++        return parquet_paths[-2:-1]
++    return parquet_paths[-1:]
++
+ # -----------------------------------------------------------------------------
+ def download_single_file(index):
+     """ Downloads a single file index, with some backoff """

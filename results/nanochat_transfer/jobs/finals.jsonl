@@ -1,0 +1,15 @@
+{"name": "f_muon_s1", "args": ["--optim", "muon", "--matrix-lr", "0.0330354", "--seed", "1"]}
+{"name": "f_adamw_s1", "args": ["--optim", "adamw", "--matrix-lr", "0.00330383", "--adamw-eps", "1e-08", "--seed", "1"]}
+{"name": "f_adago_s1", "args": ["--optim", "adago", "--adago-eta", "0.5", "--seed", "1"]}
+{"name": "f_curv_s1", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "1"]}
+{"name": "f_curvc1_s1", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--seed", "1"]}
+{"name": "f_muon_s2", "args": ["--optim", "muon", "--matrix-lr", "0.0330354", "--seed", "2"]}
+{"name": "f_adamw_s2", "args": ["--optim", "adamw", "--matrix-lr", "0.00330383", "--adamw-eps", "1e-08", "--seed", "2"]}
+{"name": "f_adago_s2", "args": ["--optim", "adago", "--adago-eta", "0.5", "--seed", "2"]}
+{"name": "f_curv_s2", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "2"]}
+{"name": "f_curvc1_s2", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--seed", "2"]}
+{"name": "f_muon_s3", "args": ["--optim", "muon", "--matrix-lr", "0.0330354", "--seed", "3"]}
+{"name": "f_adamw_s3", "args": ["--optim", "adamw", "--matrix-lr", "0.00330383", "--adamw-eps", "1e-08", "--seed", "3"]}
+{"name": "f_adago_s3", "args": ["--optim", "adago", "--adago-eta", "0.5", "--seed", "3"]}
+{"name": "f_curv_s3", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--probe-scale", "0.5", "--seed", "3"]}
+{"name": "f_curvc1_s3", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--seed", "3"]}

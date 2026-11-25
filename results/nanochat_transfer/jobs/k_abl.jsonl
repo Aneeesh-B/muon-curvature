@@ -1,0 +1,5 @@
+{"name": "k_10", "args": ["--optim", "curv", "--probe-every", "10", "--probe-eps-rel", "1e-3", "--seed", "0"]}
+{"name": "k_25", "args": ["--optim", "curv", "--probe-every", "25", "--probe-eps-rel", "1e-3", "--seed", "0"]}
+{"name": "k_50", "args": ["--optim", "curv", "--probe-every", "50", "--probe-eps-rel", "1e-3", "--seed", "0"]}
+{"name": "k_100", "args": ["--optim", "curv", "--probe-every", "100", "--probe-eps-rel", "1e-3", "--seed", "0"]}
+{"name": "k_once", "args": ["--optim", "curv", "--probe-every", "0", "--probe-eps-rel", "1e-3", "--seed", "0"]}

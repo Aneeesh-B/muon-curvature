@@ -1,0 +1,4 @@
+{"name": "w_ss_muon_04", "args": ["--optim", "muon", "--matrix-lr", "0.00949358", "--lr-shape", "exp", "--lr-warmdown-ratio", "0.8858", "--lr-final-frac", "0.007815", "--seed", "0", "--aspect-ratio", "128"]}
+{"name": "w_ss_muon_05", "args": ["--optim", "muon", "--matrix-lr", "0.113262", "--lr-shape", "exp", "--lr-warmdown-ratio", "0.3377", "--lr-final-frac", "0.01382", "--seed", "0", "--aspect-ratio", "128"]}
+{"name": "w_ss_muon_06", "args": ["--optim", "muon", "--matrix-lr", "0.0522233", "--lr-shape", "cosine", "--lr-warmdown-ratio", "0.4914", "--lr-final-frac", "0.01159", "--seed", "0", "--aspect-ratio", "128"]}
+{"name": "w_ss_muon_07", "args": ["--optim", "muon", "--matrix-lr", "0.00547582", "--lr-shape", "exp", "--lr-warmdown-ratio", "0.5103", "--lr-final-frac", "0.01226", "--seed", "0", "--aspect-ratio", "128"]}

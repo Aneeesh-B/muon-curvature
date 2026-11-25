@@ -1,0 +1,286 @@
+{
+  "protocol": {
+    "training_config": "configs/wide.json",
+    "caps": {
+      "low": 112540123136000,
+      "middle": 225080246272000,
+      "high": 450160492544000
+    },
+    "fallback_caps": {
+      "low": 90032098508800,
+      "middle": 180064197017600,
+      "high": 360128394035200
+    },
+    "slot_percent": 8,
+    "preflight_seed": 0,
+    "seeds": [
+      3,
+      4,
+      5
+    ],
+    "extra_seeds": [
+      6,
+      7
+    ],
+    "single_arms": [
+      "fixed_muon",
+      "same_batch_muon",
+      "independent_muon"
+    ],
+    "search_arms": [
+      "muon_search",
+      "adamw_search",
+      "adago_search"
+    ],
+    "search_grids": {
+      "muon_search": [
+        0.003,
+        0.01,
+        0.02,
+        0.04,
+        0.08
+      ],
+      "adamw_search": [
+        0.0003,
+        0.001,
+        0.003,
+        0.006,
+        0.01
+      ],
+      "adago_search": [
+        [
+          0.02,
+          0.0001
+        ],
+        [
+          0.05,
+          0.0005
+        ],
+        [
+          0.1,
+          0.0005
+        ],
+        [
+          0.3,
+          0.0005
+        ],
+        [
+          0.3,
+          0.003
+        ]
+      ]
+    },
+    "mechanism": {
+      "arm": "fixed_muon",
+      "anchors": [
+        100,
+        500,
+        1000
+      ],
+      "fresh_batches": 8,
+      "grid": [
+        0.0,
+        0.001,
+        0.003,
+        0.005,
+        0.01,
+        0.02,
+        0.04,
+        0.08,
+        0.16,
+        0.2
+      ]
+    },
+    "isolation_step": 1000,
+    "isolation_arms": [
+      "fixed_muon",
+      "same_batch_muon",
+      "independent_muon"
+    ],
+    "ablations": {
+      "backtracking_arms": [
+        "guarded_muon",
+        "guarded_base_muon"
+      ],
+      "scheduled_horizons": [
+        500,
+        1000,
+        2000
+      ],
+      "scheduled_arms": [
+        "scheduled_fixed_muon",
+        "scheduled_same_batch_muon",
+        "scheduled_heldout_muon"
+      ],
+      "scheduled_search_peaks": [
+        0.003,
+        0.01,
+        0.02,
+        0.04,
+        0.08
+      ],
+      "replay_development_seeds": [
+        10,
+        11
+      ],
+      "replay_source_arm": "scheduled_heldout_muon"
+    }
+  },
+  "training_config": {
+    "n_layer": 4,
+    "n_head": 7,
+    "n_embd": 448,
+    "block_size": 128,
+    "batch_size": 16,
+    "steps": 2000,
+    "dropout": 0.0,
+    "eval_every": 100,
+    "eval_batches": 32,
+    "lr": 0.02,
+    "adam_lr": 0.001,
+    "weight_decay": 0.0,
+    "momentum": 0.95,
+    "probe_every": 50,
+    "probe_start": 100,
+    "relative_distance": 0.001,
+    "lr_min": 1e-05,
+    "lr_max": 0.2,
+    "safety": 1.0,
+    "threads": 4
+  },
+  "costs": {
+    "forward": 41458335744,
+    "adamw_update": 124375007232,
+    "newton_schulz": 100705239040,
+    "muon_update": 225080246272,
+    "probe_pass": 124255731712,
+    "tuning_validation": 562278678528,
+    "reporting_validation": 562278678528,
+    "test_evaluation": 1127148503040,
+    "windows": {
+      "tuning": 217,
+      "reporting": 217,
+      "test": 435
+    }
+  },
+  "device": "cuda",
+  "python": "3.12.3",
+  "torch": "2.9.1+cu128",
+  "torch_cuda": "12.8",
+  "hardware": "NVIDIA GeForce RTX 5090",
+  "cuda_capability": [
+    12,
+    0
+  ],
+  "tf32": {
+    "matmul": false,
+    "cudnn": false
+  },
+  "deterministic": true,
+  "platform": "Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "revision": "7a8b6d6905c449fe91dadd0964f6f38a62561cd3",
+  "git_status": " M README.md\n M curvature_muon/budget.py\n M curvature_muon/optimizer.py\n?? configs/production.json\n?? curvature_muon/production.py\n?? curvature_muon/production_report.py\n?? results/nanochat_transfer/\n?? scripts/production.sh\n?? tests/test_production.py\n",
+  "git_diff_sha256": "6fdb5986b2dc669402e0c98f451e1eaddbb23b6c433db2ff3048d7159f0b7ec4",
+  "nvidia_smi": "Tue Nov 24 02:50:30 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 610.57.01              KMD Version: 610.88        CUDA UMD Version: 13.3     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GeForce RTX 5090        On  |   00000000:02:00.0  On |                  N/A |\n| 39%   60C    P1             95W /  575W |    2296MiB /  32607MiB |      0%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A           98872      C   /python3.12                           N/A      |\n+-----------------------------------------------------------------------------------------+\n",
+  "free_disk_bytes": 121200615424,
+  "data": {
+    "source": "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt",
+    "sha256": "86c4e6aa9db7c042ec79f339dcb96d42b0075e16b8fc2e86bf0ca57e2dc565ed",
+    "vocab": [
+      "\n",
+      " ",
+      "!",
+      "$",
+      "&",
+      "'",
+      ",",
+      "-",
+      ".",
+      "3",
+      ":",
+      ";",
+      "?",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "J",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "T",
+      "U",
+      "V",
+      "W",
+      "X",
+      "Y",
+      "Z",
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "q",
+      "r",
+      "s",
+      "t",
+      "u",
+      "v",
+      "w",
+      "x",
+      "y",
+      "z"
+    ],
+    "vocab_size": 65,
+    "split_sizes": [
+      1003854,
+      55770,
+      55770
+    ]
+  },
+  "source_sha256": {
+    "curvature_muon/__init__.py": "6af2e2d263cc08f722d91419e26a7e9ab84b5f83a6ed4d29c2f9945864113eb3",
+    "curvature_muon/audit.py": "3a90debc8ab2fcd23dbb155e95dd0efdd0bf3fa8048a67f3ed4eec32081a4a3a",
+    "curvature_muon/benchmark_curvature.py": "3f162ac95f67c1e714ffde3362e8f9f2a2e26c20750ee1f26dfe06f3ce757eda",
+    "curvature_muon/budget.py": "8f140a9747b8765f176c75d301dbe315e27690a536fcea027a3632f10680795f",
+    "curvature_muon/data.py": "7841fa21388a451c9a76e4b00a6175df029d09c6ec86830b888fb08b823e8a46",
+    "curvature_muon/diagnostics.py": "4f1b48f18e3d8c65c5051d785c7a2ba678f3cad33a71f8ac796e52c34c6bfe55",
+    "curvature_muon/optimizer.py": "e5562383b60d45a7bbbbe9431bdd790b64291fd173ce249e9f474f5e6627a6c8",
+    "curvature_muon/production.py": "7769ec55a7e09cf6acf9598e9b8a28f21f0998a0cd98e576f4a25d270f7287c5",
+    "curvature_muon/production_report.py": "97c63d911f8751367cf62935aba944f8fd6d1dbaf49a859a9167771bcc4710a3",
+    "curvature_muon/report.py": "c4250798b39794aee6937be9f5d963e3218b4017cc8cd19b58a301fb51150b80",
+    "curvature_muon/suite.py": "37ee8125f2dbbb0d6cc5bfb11d3d4f2f92ab4411764991a1781c68bdeab0099d",
+    "curvature_muon/train.py": "56d5260d1e1f01fa2433f90fe643c282dc941c7bbfb4680063936a0b8fc7a391",
+    "third_party/nanogpt/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "third_party/nanogpt/model.py": "7c01703240dbec5d554527dc666e35b3df8391d0b117fddc07afcf325a21d11c"
+  },
+  "started": "2026-11-24T02:50:30-0800",
+  "stage": "core",
+  "seeds": [
+    6,
+    7
+  ],
+  "cap_set": "caps"
+}

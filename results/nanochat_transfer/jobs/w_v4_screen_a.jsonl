@@ -1,0 +1,1 @@
+{"name": "w_v4_sd0", "args": ["--optim", "curv", "--probe-sched", "--probe-heldout", "--probe-eps-rel", "1e-3", "--probe-every", "25", "--probe-start", "25", "--probe-cap", "--seed", "0", "--aspect-ratio", "128"]}
